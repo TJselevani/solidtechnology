@@ -22,6 +22,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/components/common/Header.js", "src/components/common/Footer.js", "src/components/product/cart.js", "src/components/product/ProductDetails.js", "src/components/product/ProductCard.js", "src/context/AuthContext.js", "src/context/CartContext.js", "src/reducers/CartReducer.js", "src/components/chat/chat.js"],
   "exclude": ["node_modules"]
 }
