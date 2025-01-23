@@ -2,17 +2,18 @@ import { defineQuery } from "next-sanity";
 import { sanityFetch } from "../../live";
 
 export const searchProductsBySlug = async (slug: string) => {
-  const PRODUCT_SEARCH_QUERY = defineQuery(`
+  const PRODUCT_SEARCH_QUERY_BY_SLUG = defineQuery(`
         *[_type == "product" && slug.current == $slug] | order(name asc) [0]    
     `);
 
   try {
-    const products = await sanityFetch({
-      query: PRODUCT_SEARCH_QUERY,
-      params: { slug }, //append wildcard for partial matches
+    const product = await sanityFetch({
+      query: PRODUCT_SEARCH_QUERY_BY_SLUG,
+      params: { slug },
     });
-    return products.data || [];
+    return product.data || null;
   } catch (error) {
-    console.error("Error fetching product by ID", error);
+    console.error("Error fetching product by Slug", error);
+    return null;
   }
 };

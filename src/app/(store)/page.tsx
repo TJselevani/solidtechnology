@@ -10,6 +10,7 @@ export default async function Home() {
 
   return (
     <div>
+      {/* Render sales offers banner */}
       <BlackFridayBanner />
 
       {/* Render all products */}

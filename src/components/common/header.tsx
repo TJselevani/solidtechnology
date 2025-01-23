@@ -11,9 +11,13 @@ import Link from "next/link";
 import Form from "next/form";
 import React from "react";
 import { PackageIcon, TrolleyIcon } from "@sanity/icons";
+import useBasketStore from "@/store/store";
 
 export default function Header() {
   const { user } = useUser();
+  const itemCount = useBasketStore((state) =>
+    state.items.reduce((total, item) => total + item.quantity, 0)
+  );
 
   // const createClearPassKey = async () => {
   //   try {
@@ -54,6 +58,9 @@ export default function Header() {
           >
             <TrolleyIcon className="w-6 h-6" />
             {/* Span items count when the global state is implemented */}
+            <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 items-center flex justify-center text-xs">
+              {itemCount}
+            </span>
             <span>My Basket</span>
           </Link>
 

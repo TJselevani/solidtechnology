@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^6.9.11",
+    "@radix-ui/react-dialog": "^1.1.5",
+    "@radix-ui/react-popover": "^1.1.5",
     "@radix-ui/react-slot": "^1.1.1",
     "@reduxjs/toolkit": "^2.5.0",
     "@sanity/icons": "^3.5.7",
@@ -20,6 +22,7 @@
     "bcryptjs": "^2.4.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "cmdk": "^1.0.0",
     "flowbite-react": "^0.10.2",
     "framer-motion": "^12.0.0",
     "fs": "^0.0.1-security",
@@ -40,10 +43,12 @@
     "socket.io-client": "^4.8.1",
     "styled-components": "^6.1.14",
     "tailwind-merge": "^2.6.0",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "zustand": "^5.0.3"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@tailwindcss/typography": "^0.5.16",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

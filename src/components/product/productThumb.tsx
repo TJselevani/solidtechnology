@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Product } from "../../../sanity.types";
 import Image from "next/image";
 import { imageUrl } from "@/lib/imageUrl";
+import { formatPriceFromString } from "@/utils/formatPrice";
 
 const ProductThumb = ({ product }: { product: Product }) => {
   const isOutOfStock = product.stock != null && product.stock <= 0;
@@ -29,7 +30,7 @@ const ProductThumb = ({ product }: { product: Product }) => {
       </div>
 
       <div className="p-4">
-        <h2 className="text-lg font-semibold text-gray-500 truncate">
+        <h2 className="text-lg font-semibold text-black-500 truncate">
           {product.name}
         </h2>
 
@@ -44,7 +45,8 @@ const ProductThumb = ({ product }: { product: Product }) => {
         </p>
 
         <p className="mt-2 text-lg font-bold text-gray-900">
-          ksh {product.price?.toFixed(2)}
+          ksh{" "}
+          {product.price && formatPriceFromString(product.price?.toFixed(2))}
         </p>
       </div>
     </Link>
