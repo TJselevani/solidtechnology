@@ -1,6 +1,6 @@
 import { defineQuery } from "next-sanity";
-import { CouponCode } from "./couponCodes";
-import { sanityFetch } from "../live";
+import { CouponCode } from "../../../../utils/types/couponCodes";
+import { sanityFetch } from "../../live";
 
 const getActiveSaleByCouponCode = async (couponCode: CouponCode) => {
   // Define the query with a parameter placeholder

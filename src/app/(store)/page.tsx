@@ -1,7 +1,8 @@
 // import { Button } from "@/components/ui/button";
 import ProductsView from "@/components/product/productsView";
-import { getAllCategories } from "@/sanity/lib/products/getAllCategories";
-import { getAllProducts } from "@/sanity/lib/products/getAllProducts";
+import BlackFridayBanner from "@/components/salesOffers/BlackFridayBanner";
+import { getAllCategories } from "@/sanity/lib/queries/products/getAllCategories";
+import { getAllProducts } from "@/sanity/lib/queries/products/getAllProducts";
 
 export default async function Home() {
   const products = await getAllProducts();
@@ -9,7 +10,7 @@ export default async function Home() {
 
   return (
     <div>
-      <h1>Hello World</h1>
+      <BlackFridayBanner />
 
       {/* Render all products */}
       <div className="flex flex-col items-center justify-top min-h-screen bg-gray-100 p-4">

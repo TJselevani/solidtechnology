@@ -402,7 +402,7 @@
         },
         "optional": true
       },
-      "isValid": {
+      "isActive": {
         "type": "objectAttribute",
         "value": {
           "type": "boolean"

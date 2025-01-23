@@ -39,7 +39,7 @@ export const saleType = defineType({
       type: "datetime",
     }),
     defineField({
-      name: "isValid",
+      name: "isActive",
       title: "Is Active",
       type: "boolean",
       description: "Toggle to activate/deactivate the sale",
