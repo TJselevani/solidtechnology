@@ -15,9 +15,9 @@ export function formatPrice(price: number, currency: string = ""): string {
   // Format the number and prepend the currency symbol if provided
   return `${currency}${formatter.format(price)}`;
 }
-console.log(formatPrice(1000)); // Output: "1,000.00"
-console.log(formatPrice(2500.5)); // Output: "2,500.50"
-console.log(formatPrice(987654321.99, "€")); // Output: "€987,654,321.99"
+// console.log(formatPrice(1000)); // Output: "1,000.00"
+// console.log(formatPrice(2500.5)); // Output: "2,500.50"
+// console.log(formatPrice(987654321.99, "€")); // Output: "€987,654,321.99"
 
 /**
  * Formats a string representing a number as a price string with commas for readability.
@@ -48,9 +48,9 @@ export function formatPriceFromString(
   return `${currency}${formatter.format(price)}`;
 }
 
-// Example usage:
-console.log(formatPriceFromString("1234567.89", "$")); // Output: "$1,234,567.89"
-console.log(formatPriceFromString("1000")); // Output: "1,000.00"
-console.log(formatPriceFromString("2500.5")); // Output: "2,500.50"
-console.log(formatPriceFromString("987654321.99", "€")); // Output: "€987,654,321.99"
-console.log(formatPriceFromString("invalid")); // Output: "Invalid price"
+// // Example usage:
+// console.log(formatPriceFromString("1234567.89", "$")); // Output: "$1,234,567.89"
+// console.log(formatPriceFromString("1000")); // Output: "1,000.00"
+// console.log(formatPriceFromString("2500.5")); // Output: "2,500.50"
+// console.log(formatPriceFromString("987654321.99", "€")); // Output: "€987,654,321.99"
+// console.log(formatPriceFromString("invalid")); // Output: "Invalid price"

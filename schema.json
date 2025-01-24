@@ -555,7 +555,7 @@
         },
         "optional": true
       },
-      "totalPRice": {
+      "totalPrice": {
         "type": "objectAttribute",
         "value": {
           "type": "number"
@@ -602,6 +602,13 @@
               "value": "Cancelled"
             }
           ]
+        },
+        "optional": true
+      },
+      "orderDate": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
         },
         "optional": true
       }

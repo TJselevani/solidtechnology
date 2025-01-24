@@ -88,7 +88,7 @@ export const orderType = defineType({
       ],
     }),
     defineField({
-      name: "totalPRice",
+      name: "totalPrice",
       title: "Total Price",
       type: "number",
       validation: (Rule) => Rule.required().min(0),
@@ -118,6 +118,12 @@ export const orderType = defineType({
           { title: "Cancelled", value: "Cancelled" },
         ],
       },
+    }),
+    defineField({
+      name: "orderDate",
+      title: "Order Date",
+      type: "datetime",
+      validation: (Rule) => Rule.required(),
     }),
   ],
   preview: {

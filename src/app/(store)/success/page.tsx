@@ -59,9 +59,16 @@ function SuccessPage() {
             )}
           </div>
 
+          {/* {sessionId && (
+            <p className="text-gray-600 flex justify-between">
+              <span>Transaction ID:</span>
+              <span className="font-mono text-sm text-green-600">{sessionId}</span>
+            </p>
+          )} */}
+
           <div className="space-y-4">
             <p className="text-gray-600">
-              a confirmaton email has been sent to your email adddress
+              A confirmaton email has been sent to your email adddress
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild className="bg-green-600 hover:bg-green-700">
