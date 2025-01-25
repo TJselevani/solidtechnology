@@ -1,14 +1,36 @@
-import React from "react";
-import { Product, Category } from "../../../sanity.types";
+"use client";
+
+import React, { useState } from "react";
+import { Product, Category, Manufacturer } from "../../../sanity.types";
 import ProductGrid from "./productGrid";
 import CategorySelector from "../category/categorySelector";
+import ManufacturerFilter from "./productManufacturer";
 
 interface ProductViewProps {
   products: Product[];
   categories: Category[];
+  manufacturers: Manufacturer[]; // Adjust manufacturers to contain the _ref and name
 }
 
-const ProductsView = ({ products, categories }: ProductViewProps) => {
+const ProductsView = ({
+  products,
+  categories,
+  manufacturers,
+}: ProductViewProps) => {
+  const [filteredProducts, setFilteredProducts] = useState(products);
+
+  const handleFilterChange = (manufacturerRef: string) => {
+    if (manufacturerRef === "") {
+      setFilteredProducts(products); // Show all products
+    } else {
+      setFilteredProducts(
+        products.filter(
+          (product) => product.manufacturer?._ref === manufacturerRef
+        )
+      );
+    }
+  };
+
   return (
     <div className="flex flex-col">
       {/* Categories */}
@@ -16,10 +38,16 @@ const ProductsView = ({ products, categories }: ProductViewProps) => {
         <CategorySelector categories={categories} />
       </div>
 
+      {/* Render Manufacturer Filter */}
+      <ManufacturerFilter
+        manufacturers={manufacturers}
+        onFilterChange={handleFilterChange}
+      />
+
       {/* Products */}
       <div className="flex-1">
         <div>
-          <ProductGrid products={products} />
+          <ProductGrid products={filteredProducts} />
           <hr className="w-1/2 sm:w-3/4" />
         </div>
       </div>

@@ -121,6 +121,12 @@ export type Product = {
   _rev: string;
   name?: string;
   slug?: Slug;
+  manufacturer?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "manufacturer";
+  };
   image?: {
     asset?: {
       _ref: string;
@@ -171,6 +177,27 @@ export type Product = {
     [internalGroqTypeReferenceTo]?: "category";
   }>;
   stock?: number;
+};
+
+export type Manufacturer = {
+  _id: string;
+  _type: "manufacturer";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  country?: string;
+  logo?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
 };
 
 export type Category = {
@@ -278,7 +305,7 @@ export type SanityImageMetadata = {
   isOpaque?: boolean;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Sale | Order | Product | Category | Slug | BlockContent | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Sale | Order | Product | Manufacturer | Category | Slug | BlockContent | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries/orders/getAllOrders.ts
 // Variable: ALL_ORDERS_QUERY
@@ -305,6 +332,12 @@ export type ALL_ORDERS_QUERYResult = Array<{
       _rev: string;
       name?: string;
       slug?: Slug;
+      manufacturer?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "manufacturer";
+      };
       image?: {
         asset?: {
           _ref: string;
@@ -380,6 +413,30 @@ export type ALL_CATEGORIES_QUERYResult = Array<{
   description?: string;
 }>;
 
+// Source: ./src/sanity/lib/queries/products/getAllManufacturers.ts
+// Variable: ALL_MANUFACTURERS_QUERY
+// Query: *[_type == "manufacturer"] | order(name asc)
+export type ALL_MANUFACTURERS_QUERYResult = Array<{
+  _id: string;
+  _type: "manufacturer";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  country?: string;
+  logo?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+}>;
+
 // Source: ./src/sanity/lib/queries/products/getAllProducts.ts
 // Variable: ALL_PRODUCTS_QUERY
 // Query: *[_type == "product"] | order(name asc)
@@ -391,6 +448,12 @@ export type ALL_PRODUCTS_QUERYResult = Array<{
   _rev: string;
   name?: string;
   slug?: Slug;
+  manufacturer?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "manufacturer";
+  };
   image?: {
     asset?: {
       _ref: string;
@@ -472,6 +535,12 @@ export type PRODUCT_SEARCH_QUERY_BY_CATEGORYResult = Array<{
   _rev: string;
   name?: string;
   slug?: Slug;
+  manufacturer?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "manufacturer";
+  };
   image?: {
     asset?: {
       _ref: string;
@@ -535,6 +604,12 @@ export type PRODUCT_SEARCH_QUERY_BY_NAMEResult = Array<{
   _rev: string;
   name?: string;
   slug?: Slug;
+  manufacturer?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "manufacturer";
+  };
   image?: {
     asset?: {
       _ref: string;
@@ -598,6 +673,12 @@ export type PRODUCT_SEARCH_QUERY_BY_SLUGResult = {
   _rev: string;
   name?: string;
   slug?: Slug;
+  manufacturer?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "manufacturer";
+  };
   image?: {
     asset?: {
       _ref: string;
@@ -656,6 +737,7 @@ declare module "@sanity/client" {
   interface SanityQueries {
     "\n    *[_type == \"order\" && clerkUserId == $userId] | order(orderDate desc) {\n      ...,\n      products[]{\n        ...,\n        product->\n      }\n    }\n  ": ALL_ORDERS_QUERYResult;
     "\n        *[_type == \"category\"] | order(name asc)\n    ": ALL_CATEGORIES_QUERYResult;
+    "\n    *[_type == \"manufacturer\"] | order(name asc)\n  ": ALL_MANUFACTURERS_QUERYResult;
     "\n        *[_type == \"product\"] | order(name asc)\n    ": ALL_PRODUCTS_QUERYResult;
     "\n        *[ _type == \"sale\" && isActive == true && couponCode == $couponCode ] | order(validFrom desc)[0]\n    ": ACTIVE_SALE_BY_COUPON_QUERYResult;
     "\n        *[_type == \"product\" && references(*[_type == \"category\" && slug.current == $categorySlug]._id)] | order(name asc) \n    ": PRODUCT_SEARCH_QUERY_BY_CATEGORYResult;
