@@ -1,5 +1,5 @@
 import { COUPON_CODES } from "@/utils/types/couponCodes";
-import getActiveSaleByCouponCode from "@/sanity/lib/queries/salesOffers/getActiveSaleByCouponCode";
+import getActiveSaleByCouponCode from "@/sanity/lib/queries/banners/getActiveSaleByCouponCode";
 import React from "react";
 
 export default async function BlackFridayBanner() {

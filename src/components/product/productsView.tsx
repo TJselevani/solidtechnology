@@ -3,13 +3,13 @@
 import React, { useState } from "react";
 import { Product, Category, Manufacturer } from "../../../sanity.types";
 import ProductGrid from "./productGrid";
-import CategorySelector from "../category/categorySelector";
+// import CategorySelector from "../category/categorySelector";
 import ManufacturerFilter from "./productManufacturer";
 
 interface ProductViewProps {
   products: Product[];
   categories: Category[];
-  manufacturers: Manufacturer[]; // Adjust manufacturers to contain the _ref and name
+  manufacturers: Manufacturer[];
 }
 
 const ProductsView = ({
@@ -31,12 +31,14 @@ const ProductsView = ({
     }
   };
 
+  console.log(categories.length);
+
   return (
     <div className="flex flex-col">
       {/* Categories */}
-      <div className="w-full sm:w-[200px]">
+      {/* <div className="w-full sm:w-[200px]">
         <CategorySelector categories={categories} />
-      </div>
+      </div> */}
 
       {/* Render Manufacturer Filter */}
       <ManufacturerFilter

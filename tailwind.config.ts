@@ -14,6 +14,7 @@ const config: Config = {
       colors: {
         "dark-background": "hsl(240, 10%, 15%)",
         "dark-foreground": "hsl(0, 0%, 98%)",
+        "light-background":"#eeeee4",
         "custom-black": "#171717",
         "custom-black-1": "#040404",
         "custom-black-2": "#141414",
@@ -25,7 +26,6 @@ const config: Config = {
         "custom-gray-2": "#646464",
         "custom-gray-3": "#5c5c5c",
         "custom-gray-4": "#474747",
-
         "custom-white": "#fefefe",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",

@@ -7,6 +7,7 @@ export const categoryType = defineType({
   type: "document",
   icon: TagIcon,
   fields: [
+    // Existing fields
     defineField({
       name: "title",
       type: "string",

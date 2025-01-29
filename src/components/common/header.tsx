@@ -8,19 +8,17 @@ import {
   useUser,
 } from "@clerk/nextjs";
 import Link from "next/link";
-import Form from "next/form"; // Ensure this is imported correctly; it might need to be 'next/forms' depending on your version
+import Form from "next/form";
 import React, { useEffect, useState } from "react";
 import { PackageIcon, TrolleyIcon } from "@sanity/icons";
 import useBasketStore from "@/store/store";
-import { useTheme } from "next-themes";
-import { toggleTheme } from "../theme/toggleTheme";
+import ThemeToggle from "../theme/toggleTheme";
 
 export default function Header() {
   const { user } = useUser();
   const itemCount = useBasketStore((state) =>
     state.items.reduce((total, item) => total + item.quantity, 0)
   );
-  const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
   // Ensure that the component is mounted before accessing the theme
@@ -31,7 +29,7 @@ export default function Header() {
   if (!mounted) return null; // Prevents hydration mismatch
 
   return (
-    <header className="flex flex-wrap justify-between items-center px-4 py-2 bg-custom-black">
+    <header className="flex flex-wrap justify-between items-center px-4 py-2">
       {/* Top row */}
       <div className="flex w-full flex-wrap justify-between items-center">
         <Link
@@ -49,20 +47,15 @@ export default function Header() {
             type="text"
             name="query"
             placeholder="Search for products"
-            className="bg-custom-black-5 text-gray-800 px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 border w-full max-w-4xl"
+            className="bg-custom-black-3 glass opacity-20 text-gray-800 px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:text-white focus:font-extrabold focus:font-3xl focus:opacity-80 focus:ring-opacity-50 border w-full max-w-4xl"
           />
         </Form>
 
-        <div>
-          <button
-            onClick={toggleTheme}
-            className="p-2 rounded bg-blue-500 text-white"
-          >
-            Toggle to {theme === "light" ? "Dark" : "Light"} Mode
-          </button>
-        </div>
-
         <div className="flex items-center space-x-4 mt-4 sm:mt-0 flex-1 sm:flex-none">
+          <div>
+            <ThemeToggle />
+          </div>
+
           <Link
             href="/basket"
             className="flex-1 relative flex justify-center sm:justify-start sm:flex-none space-x-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
