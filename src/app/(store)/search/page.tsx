@@ -9,7 +9,7 @@ interface params {
 export default async function SearchPage({
   searchParams,
 }: {
-  searchParams: params;
+  searchParams: Promise<params>;
 }) {
   const { query } = await searchParams;
   const products = await searchProductsByName(query);

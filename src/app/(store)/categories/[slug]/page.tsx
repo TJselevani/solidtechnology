@@ -1,5 +1,6 @@
 import ProductsView from "@/components/product/productsView";
 import { getAllCategories } from "@/sanity/lib/queries/products/getAllCategories";
+import { getAllManufacturers } from "@/sanity/lib/queries/products/getAllManufacturers";
 import { searchProductsByCategory } from "@/sanity/lib/queries/search/searchProductsByCategory";
 
 interface param {
@@ -10,6 +11,7 @@ const categoryPage = async ({ params }: { params: Promise<param> }) => {
   const { slug } = await params;
   const products = await searchProductsByCategory(slug);
   const categories = await getAllCategories();
+  const manufacturers = await getAllManufacturers();
 
   return (
     <div className="flex flex-col items-center justify-top min-h-screen bg-gray-100 p-4">
@@ -21,7 +23,11 @@ const categoryPage = async ({ params }: { params: Promise<param> }) => {
             .join(" ")}
           {""} Collection
         </h1>
-        <ProductsView products={products} categories={categories} />
+        <ProductsView
+          products={products}
+          categories={categories}
+          manufacturers={manufacturers}
+        />
       </div>
     </div>
   );
