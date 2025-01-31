@@ -1,18 +1,25 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { Advertisement } from "../../../sanity.types";
 import { imageUrl } from "@/lib/imageUrl";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import getAllAdvertisements from "@/sanity/lib/queries/banners/getProductAdverts";
 import { formatPriceFromString } from "@/utils/formatPrice";
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 
-interface Props {
-  advertisement: Advertisement;
+interface AdvertisementBannerProps {
+  advertisement: Awaited<ReturnType<typeof getAllAdvertisements>>[0];
 }
 
-const AdvertisementBanner = ({ advertisement }: Props) => {
-  const { products = [], duration = 5, active = false, title } = advertisement;
+// type pop = Awaited<ReturnType<typeof getAllAdvertisements>>[0];
+
+// ✅ Extracted into a separate component so hooks can be used properly
+const AdvertisementBanner = ({ advertisement }: AdvertisementBannerProps) => {
+  const products = advertisement.products ?? [];
+  const duration = advertisement.duration ?? 5;
+  const active = advertisement.active ?? false;
+  const title = advertisement.title ?? "Hot this week";
+
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -35,28 +42,33 @@ const AdvertisementBanner = ({ advertisement }: Props) => {
       {/* Animated Product Display */}
       <div className="relative w-full h-80 flex items-center justify-center">
         <AnimatePresence mode="wait">
-          {products.map((product, index: number) =>
+          {products.map((product, index) =>
             index === currentIndex ? (
               <motion.div
-                key={product._ref}
+                key={product.product?._id}
                 initial={{ x: "100%", opacity: 0 }}
                 animate={{ x: "0%", opacity: 1 }}
                 exit={{ x: "-100%", opacity: 0 }}
                 transition={{ duration: 1, ease: "easeInOut" }}
                 className="absolute w-full flex flex-col items-center text-center"
               >
-                {product.image?.asset?._ref && (
+                {product.product?.image && (
                   <Image
-                    src={imageUrl(product.image.asset._ref).url()}
-                    alt={product.name || "Product Image"}
+                    src={imageUrl(product.product.image).url()}
+                    alt={product.product.name || "Product Image"}
                     width={300}
                     height={200}
-                    className="object-cover rounded-lg" // shadow-lg
+                    className="object-cover rounded-lg"
                   />
                 )}
-                <h3 className="mt-2 text-xl font-semibold">{product.name}</h3>
-                <p className="text-lg text-gray-700">ksh{" "}
-                          {product.price && formatPriceFromString(product.price?.toFixed(2))}</p>
+                <h3 className="mt-2 text-xl font-semibold">
+                  {product.product?.name}
+                </h3>
+                <p className="text-lg text-gray-700">
+                  ksh{" "}
+                  {product.product?.price &&
+                    formatPriceFromString(product.product.price.toFixed(2))}
+                </p>
               </motion.div>
             ) : null
           )}

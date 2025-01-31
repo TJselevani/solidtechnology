@@ -374,6 +374,13 @@
         },
         "optional": true
       },
+      "duration": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "number"
+        },
+        "optional": true
+      },
       "products": {
         "type": "objectAttribute",
         "value": {
@@ -381,28 +388,37 @@
           "of": {
             "type": "object",
             "attributes": {
-              "_ref": {
+              "product": {
                 "type": "objectAttribute",
                 "value": {
-                  "type": "string"
-                }
-              },
-              "_type": {
-                "type": "objectAttribute",
-                "value": {
-                  "type": "string",
-                  "value": "reference"
-                }
-              },
-              "_weak": {
-                "type": "objectAttribute",
-                "value": {
-                  "type": "boolean"
+                  "type": "object",
+                  "attributes": {
+                    "_ref": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "string"
+                      }
+                    },
+                    "_type": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "string",
+                        "value": "reference"
+                      }
+                    },
+                    "_weak": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "boolean"
+                      },
+                      "optional": true
+                    }
+                  },
+                  "dereferencesTo": "product"
                 },
                 "optional": true
               }
             },
-            "dereferencesTo": "product",
             "rest": {
               "type": "object",
               "attributes": {
@@ -415,13 +431,6 @@
               }
             }
           }
-        },
-        "optional": true
-      },
-      "duration": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "number"
         },
         "optional": true
       }
@@ -1428,7 +1437,7 @@
             },
             {
               "type": "string",
-              "value": "500"
+              "value": "512"
             },
             {
               "type": "string",

@@ -1,33 +1,33 @@
 import { defineQuery } from "next-sanity";
 import { sanityFetch } from "../../live";
 
-const getAllProductAdverts = async () => {
-  // Fetch all fields automatically, including nested product details
-  const ADVERT_BANNER_PRODUCTS_QUERY = defineQuery(`
-    *[_type == "advertisement" && active == true]{
+const getAllAdvertisements = async () => {
+  // Fetch all active advertisements with nested product details
+  const ACTIVE_ADVERTISEMENTS_QUERY = defineQuery(`
+    *[_type == "advertisement"] | order(title desc){
       ...,
-      products[]-> { 
-        ...,
-        image {
-          asset->{
-            _id,
-            url
-          }
+      products[]{
+        _key,
+        product->{
+          _id,
+          name,
+          price,
+          image
         }
-      } // ✅ Fetch all product fields automatically
+      }
     }
   `);
 
   try {
     const banners = await sanityFetch({
-      query: ADVERT_BANNER_PRODUCTS_QUERY,
+      query: ACTIVE_ADVERTISEMENTS_QUERY,
     });
 
-    return banners ? banners.data : [];
+    return banners.data || [];
   } catch (error) {
     console.error("Error fetching active product banners", error);
     return [];
   }
 };
 
-export default getAllProductAdverts;
+export default getAllAdvertisements;
