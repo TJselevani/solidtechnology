@@ -5,21 +5,10 @@ import { Advertisement } from "../../../sanity.types";
 import { imageUrl } from "@/lib/imageUrl";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
+import { formatPriceFromString } from "@/utils/formatPrice";
 
 interface Props {
   advertisement: Advertisement;
-}
-
-interface ProductProps {
-  _id: string;
-  name: string;
-  price: number;
-  image?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-    };
-  };
 }
 
 const AdvertisementBanner = ({ advertisement }: Props) => {
@@ -39,17 +28,17 @@ const AdvertisementBanner = ({ advertisement }: Props) => {
   if (!active || products.length === 0) return null;
 
   return (
-    <div className="relative glass w-full max-w-4xl mx-auto overflow-hidden bg-grxy-100 p-6 rounded-lg shadow-lg">
+    <div className="relative mt-4 glass w-full max-w-4xl mx-auto overflow-hidden bg-white p-6 rounded-lg shadow-lg">
       {/* Banner Title */}
-      <h2 className="text-2xl -z font-bold text-center mb-4">{title}</h2>
+      <h2 className="text-2xl font-bold text-center mb-4">{title}</h2>
 
       {/* Animated Product Display */}
       <div className="relative w-full h-80 flex items-center justify-center">
         <AnimatePresence mode="wait">
-          {products.map((product: ProductProps, index: number) =>
+          {products.map((product, index: number) =>
             index === currentIndex ? (
               <motion.div
-                key={product._id}
+                key={product._ref}
                 initial={{ x: "100%", opacity: 0 }}
                 animate={{ x: "0%", opacity: 1 }}
                 exit={{ x: "-100%", opacity: 0 }}
@@ -61,12 +50,13 @@ const AdvertisementBanner = ({ advertisement }: Props) => {
                     src={imageUrl(product.image.asset._ref).url()}
                     alt={product.name || "Product Image"}
                     width={300}
-                    height={400}
-                    className="object-cover rounded-lg "
+                    height={200}
+                    className="object-cover rounded-lg" // shadow-lg
                   />
                 )}
                 <h3 className="mt-2 text-xl font-semibold">{product.name}</h3>
-                <p className="text-lg text-gray-700">${product.price}</p>
+                <p className="text-lg text-gray-700">ksh{" "}
+                          {product.price && formatPriceFromString(product.price?.toFixed(2))}</p>
               </motion.div>
             ) : null
           )}

@@ -74,7 +74,7 @@ export const productType = defineType({
         list: [
           { title: "128GB", value: "128" },
           { title: "256GB", value: "256" },
-          { title: "500GB", value: "500" },
+          { title: "512GB", value: "512" },
           { title: "1TB", value: "1024" },
           { title: "2TB", value: "2048" },
         ],

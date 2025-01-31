@@ -440,39 +440,103 @@ export type ACTIVE_SALE_BY_COUPON_QUERYResult = {
 
 // Source: ./src/sanity/lib/queries/banners/getProductAdverts.ts
 // Variable: ADVERT_BANNER_PRODUCTS_QUERY
-// Query: *[_type == "advertisement" && active == true]{      _id,      _type,      _createdAt,      _updatedAt,      _rev,      title,      active,      duration,      products[]->{        _id,        name,        price,        image {          asset->{            _id,            url          }        },        ramCapacity,        storage,        cpuGeneration,        cpuType,        screenSize,        weight,        batteryLife,        operatingSystem,        categories[]->{          _id,          title        }      }    }
+// Query: *[_type == "advertisement" && active == true]{      ...,      products[]-> {         ...,        image {          asset->{            _id,            url          }        }      } // ✅ Fetch all product fields automatically    }
 export type ADVERT_BANNER_PRODUCTS_QUERYResult = Array<{
   _id: string;
   _type: "advertisement";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  title: string | null;
-  active: boolean | null;
-  duration: number | null;
+  title?: string;
+  active?: boolean;
   products: Array<{
     _id: string;
-    name: string | null;
-    price: number | null;
+    _type: "product";
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    name?: string;
+    slug?: Slug;
+    type?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "formFactor";
+    };
+    manufacturer?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "manufacturer";
+    };
     image: {
       asset: {
         _id: string;
         url: string | null;
       } | null;
     } | null;
-    ramCapacity: "12" | "16" | "32" | "4" | "8" | null;
-    storage: "1024" | "128" | "2048" | "256" | "500" | null;
-    cpuGeneration: "10" | "11" | "12" | "13" | "3" | "4" | "5" | "6" | "7" | "8" | null;
-    cpuType: "celeron" | "core i3" | "core i5" | "core i7" | "core i9" | "Pentium" | null;
-    screenSize: string | null;
-    weight: string | null;
-    batteryLife: string | null;
-    operatingSystem: string | null;
-    categories: Array<{
-      _id: string;
-      title: string | null;
-    }> | null;
+    description?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
+      listItem?: "bullet";
+      markDefs?: Array<{
+        href?: string;
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    } | {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: "image";
+      _key: string;
+    }>;
+    ramCapacity?: "12" | "16" | "32" | "4" | "8";
+    storage?: "1024" | "128" | "2048" | "256" | "500";
+    cpuGeneration?: "10" | "11" | "12" | "13" | "3" | "4" | "5" | "6" | "7" | "8";
+    cpuType?: "celeron" | "core i3" | "core i5" | "core i7" | "core i9" | "Pentium";
+    screenSize?: string;
+    weight?: string;
+    batteryLife?: string;
+    operatingSystem?: string;
+    price?: number;
+    categories?: Array<{
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      _key: string;
+      [internalGroqTypeReferenceTo]?: "category";
+    }>;
+    stock?: number;
+    galleryImages?: Array<{
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      caption?: string;
+      _type: "image";
+      _key: string;
+    }>;
   }> | null;
+  duration?: number;
 }>;
 
 // Source: ./src/sanity/lib/queries/orders/getAllOrders.ts
@@ -1021,7 +1085,7 @@ import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
     "\n        *[ _type == \"sale\" && isActive == true && couponCode == $couponCode ] | order(validFrom desc)[0]\n    ": ACTIVE_SALE_BY_COUPON_QUERYResult;
-    "\n    *[_type == \"advertisement\" && active == true]{\n      _id,\n      _type,\n      _createdAt,\n      _updatedAt,\n      _rev,\n      title,\n      active,\n      duration,\n      products[]->{\n        _id,\n        name,\n        price,\n        image {\n          asset->{\n            _id,\n            url\n          }\n        },\n        ramCapacity,\n        storage,\n        cpuGeneration,\n        cpuType,\n        screenSize,\n        weight,\n        batteryLife,\n        operatingSystem,\n        categories[]->{\n          _id,\n          title\n        }\n      }\n    }\n  ": ADVERT_BANNER_PRODUCTS_QUERYResult;
+    "\n    *[_type == \"advertisement\" && active == true]{\n      ...,\n      products[]-> { \n        ...,\n        image {\n          asset->{\n            _id,\n            url\n          }\n        }\n      } // \u2705 Fetch all product fields automatically\n    }\n  ": ADVERT_BANNER_PRODUCTS_QUERYResult;
     "\n    *[_type == \"order\" && clerkUserId == $userId] | order(orderDate desc) {\n      ...,\n      products[]{\n        ...,\n        product->\n      }\n    }\n  ": ALL_ORDERS_QUERYResult;
     "\n        *[_type == \"category\"] | order(name asc)\n    ": ALL_CATEGORIES_QUERYResult;
     "\n    *[_type == \"manufacturer\"] | order(name asc)\n  ": ALL_MANUFACTURERS_QUERYResult;

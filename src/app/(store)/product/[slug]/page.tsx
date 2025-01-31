@@ -6,12 +6,21 @@ import { PortableText } from "next-sanity";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
+export const dynamic = "force-static";
+export const revalidate = 60; // revalidate at most every 60 sec
+
 interface param {
   slug: string;
 }
+
 const productPage = async ({ params }: { params: Promise<param> }) => {
   const { slug } = await params;
   const product = await searchProductsBySlug(slug);
+
+  console.log(
+    crypto.randomUUID().slice(0, 5) +
+      `>>>> Rerendered the product page cache for ${slug}`
+  );
 
   if (!product) {
     return notFound();
@@ -22,7 +31,7 @@ const productPage = async ({ params }: { params: Promise<param> }) => {
     <div className="container mx-auto px-4 py-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div
-          className={`relative aspect-square overflow-hidden rounded-lg shadow-lg ${isOutOfStock ? "opacity-50" : ""}`}
+          className={`relative aspect-square overflow-hidden bg-white rounded-lg shadow-lg ${isOutOfStock ? "opacity-50" : ""}`}
         >
           {product.image && (
             <Image
