@@ -8,7 +8,7 @@ const AdvertisementView = ({ advertisements }: AdvertisementViewProps) => {
   console.log(advertisements.length, "advertisements found");
 
   return (
-    <div className="flex-1 mx-auto flex flex-col sm:flex-row items-center justify-center">
+    <div className="flex-1 mx-auto gap-5 p-8 flex flex-col sm:flex-row items-center justify-center">
       {/* Render each Advert Banner */}
 
       {advertisements.map((advertisement) => (
