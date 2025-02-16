@@ -12,9 +12,9 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        "dark-background": "hsl(240, 10%, 15%)",
+        "dark-background": "#403c4c", //"hsl(240, 10%, 15%)",
         "dark-foreground": "hsl(0, 0%, 98%)",
-        "light-background": "#eeeee4",
+        "light-background": "#e9ecef",
         "custom-black": "#171717",
         "custom-black-1": "#040404",
         "custom-black-2": "#141414",

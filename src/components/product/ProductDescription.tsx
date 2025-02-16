@@ -27,8 +27,8 @@ export function ProductDescription({ product }: { product: Product }) {
     { label: "Weight", value: product.weight },
     { label: "Battery Life", value: product.batteryLife },
     { label: "Operating System", value: product.operatingSystem },
-    { label: "Manufacturer", value: product.manufacturer.name || "Company" },
-    { label: "Type", value: product.type.title || "Laptop" },
+    { label: "Manufacturer", value: "Company" },
+    { label: "Type", value: "Device" },
   ].filter((spec) => spec.value); // Only show specs that have values
 
   // Render variant option buttons

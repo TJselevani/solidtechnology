@@ -628,7 +628,7 @@ export type ALL_MANUFACTURERS_QUERYResult = Array<{
 
 // Source: ./src/sanity/lib/queries/products/getAllProducts.ts
 // Variable: ALL_PRODUCTS_QUERY
-// Query: *[_type == "product"] | order(name asc){          ...,          manufacturer-> { _id, name, country, logo }, // Fetching manufacturer data          type->{ _id, title, description }        }
+// Query: *[_type == "product"] | order(name asc)
 export type ALL_PRODUCTS_QUERYResult = Array<{
   _id: string;
   _type: "product";
@@ -637,27 +637,18 @@ export type ALL_PRODUCTS_QUERYResult = Array<{
   _rev: string;
   name?: string;
   slug?: Slug;
-  type: {
-    _id: string;
-    title: string | null;
-    description: string | null;
-  } | null;
-  manufacturer: {
-    _id: string;
-    name: string | null;
-    country: string | null;
-    logo: {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      _type: "image";
-    } | null;
-  } | null;
+  type?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "formFactor";
+  };
+  manufacturer?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "manufacturer";
+  };
   image?: {
     asset?: {
       _ref: string;
@@ -1124,8 +1115,7 @@ declare module "@sanity/client" {
     "\n    *[_type == \"order\" && clerkUserId == $userId] | order(orderDate desc) {\n      ...,\n      products[]{\n        ...,\n        product->\n      }\n    }\n  ": ALL_ORDERS_QUERYResult;
     "\n        *[_type == \"category\"] | order(name asc)\n    ": ALL_CATEGORIES_QUERYResult;
     "\n    *[_type == \"manufacturer\"] | order(name asc)\n  ": ALL_MANUFACTURERS_QUERYResult;
-    "\n        *[_type == \"product\"] | order(name asc){\n          ...,\n          manufacturer-> { _id, name, country, logo }, // Fetching manufacturer data\n          type->{ _id, title, description }\n        }\n    ": ALL_PRODUCTS_QUERYResult;
-    "\n        *[_type == \"product\"] | order(name asc)\n    ": FEATURED_PRODUCTS_QUERYResult;
+    "\n        *[_type == \"product\"] | order(name asc)\n    ": ALL_PRODUCTS_QUERYResult | FEATURED_PRODUCTS_QUERYResult;
     "\n        *[_type == \"product\" && references(*[_type == \"category\" && slug.current == $categorySlug]._id)] | order(name asc) \n    ": PRODUCT_SEARCH_QUERY_BY_CATEGORYResult;
     "\n        *[_type == \"product\" && name match $searchParam ] | order(name asc)    \n    ": PRODUCT_SEARCH_QUERY_BY_NAMEResult;
     "\n        *[_type == \"product\" && slug.current == $slug] | order(name asc) [0]    \n    ": PRODUCT_SEARCH_QUERY_BY_SLUGResult;

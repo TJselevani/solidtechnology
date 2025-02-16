@@ -37,7 +37,7 @@ export default async function RootLayout({
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <body
-          className={`${inter.className} px-14  bg-light-background text-black dark:bg-custom-black dark:text-black`}
+          className={`${inter.className} px-auto bg-light-background text-black dark:bg-custom-black dark:text-black`}
         >
           {(await draftMode()).isEnabled && (
             <>
