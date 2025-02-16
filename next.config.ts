@@ -10,6 +10,18 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+
+  /* redirects */
+  async redirects() {
+    return []; //  Redirects have been removed.
+    return [
+      {
+        source: "/",
+        destination: "/",
+        permanent: true, // Use 'true' for permanent redirects (308)
+      },
+    ];
+  },
 };
 
 export default nextConfig;

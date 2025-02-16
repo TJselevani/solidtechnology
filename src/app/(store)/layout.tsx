@@ -9,6 +9,21 @@ import { DisableDraftMode } from "@/components/common/disableDraftMode";
 import { VisualEditing } from "next-sanity";
 import ThemeProviderWrapper from "@/components/theme/themeProvider";
 import Head from "next/head";
+import { Metadata } from "next";
+import { Inter } from "next/font/google";
+
+const inter = Inter({ subsets: ["latin"] });
+
+export const metadata: Metadata = {
+  title: "NextGen Computing",
+  description: "Highly Flavoured Computing Services and Products",
+  icons: "/favicon.ico", // Path to your favicon.ico file
+  other: {
+    rel: "apple-touch-icon",
+    url: "/apple-touch-icon.png",
+  },
+  manifest: "/site.webmanifest",
+};
 
 export default async function RootLayout({
   children,
@@ -21,7 +36,9 @@ export default async function RootLayout({
         <Head>
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        <body className="bg-light-background text-black dark:bg-custom-black dark:text-black">
+        <body
+          className={`${inter.className} px-14  bg-light-background text-black dark:bg-custom-black dark:text-black`}
+        >
           {(await draftMode()).isEnabled && (
             <>
               <DisableDraftMode />

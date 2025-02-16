@@ -13,6 +13,9 @@ import React, { useEffect, useState } from "react";
 import { PackageIcon, TrolleyIcon } from "@sanity/icons";
 import useBasketStore from "@/store/store";
 import ThemeToggle from "../theme/toggleTheme";
+import { SITE_NAME } from "@/constants/constants";
+import Image from "next/image";
+import { SITE_LOGO } from "@/constants/images";
 
 export default function Header() {
   const { user } = useUser();
@@ -32,12 +35,30 @@ export default function Header() {
     <header className="flex flex-wrap justify-between items-center px-4 py-2">
       {/* Top row */}
       <div className="flex w-full flex-wrap justify-between items-center">
-        <Link
-          href="/"
-          className="text-2xl font-bold text-blue-500 hover:opacity-50 cursor-pointer mx-auto sm:mx-0"
-        >
-          Solid Technology
-        </Link>
+        <div className="flex flex-row justify-center sm:justify-start">
+          <Link
+            href="/home"
+            className="mx-auto sm:mx-6 md:mx-8 lg:mx-10 xl:mx-12"
+          >
+            {SITE_LOGO ? (
+              <span className="brightness-110 contrast-125 drop-shadow-md">
+                {" "}
+                {/* Added filter */}
+                <Image
+                  src={SITE_LOGO}
+                  alt="Site Logo"
+                  width={90}
+                  className="hover:opacity-75 transition-opacity duration-200 object-cover"
+                  priority
+                />
+              </span>
+            ) : (
+              <span className="text-2xl font-bold text-blue-500 hover:opacity-50">
+                {SITE_NAME}
+              </span>
+            )}
+          </Link>
+        </div>
 
         <Form
           action="/search"

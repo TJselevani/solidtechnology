@@ -9,7 +9,7 @@ const ProductThumb = ({ product }: { product: Product }) => {
   return (
     <Link
       href={`/product/${product.slug?.current}`}
-      className={`group flex flex-col bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden ${isOutOfStock ? "opacity-50" : ""} sm:p-6`}
+      className={`group flex flex-col bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-lg transition-all duration-200 overflow-hidden ${isOutOfStock ? "opacity-50" : ""} sm:p-4 sm:gap-x-4`}
     >
       <div className="relative aspect-square w-full h-full overflow-hidden">
         {product.image && (
@@ -29,7 +29,7 @@ const ProductThumb = ({ product }: { product: Product }) => {
         )}
       </div>
 
-      <div className="p-4">
+      <div className="p-1">
         <h2 className="text-lg font-semibold text-black-500 truncate">
           {product.name}
         </h2>

@@ -4,7 +4,10 @@
  * @param currency - Optional currency symbol (e.g., "$", "€").
  * @returns A string representing the formatted price.
  */
-export function formatPrice(price: number, currency: string = ""): string {
+export function formatPriceFromInt(
+  price: number,
+  currency: string = ""
+): string {
   // Create an instance of Intl.NumberFormat for formatting
   const formatter = new Intl.NumberFormat("en-US", {
     style: "decimal",

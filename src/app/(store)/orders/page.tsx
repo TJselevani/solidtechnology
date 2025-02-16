@@ -1,9 +1,9 @@
 import { imageUrl } from "@/lib/imageUrl";
 import { getAllOrders } from "@/sanity/lib/queries/orders/getAllOrders";
-import { formatPrice } from "@/utils/formatPrice";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import Image from "next/image";
+import { formatPriceFromInt } from "@/utils/formatPrice";
 
 const Orders = async () => {
   const { userId } = await auth();
@@ -16,8 +16,8 @@ const Orders = async () => {
   const orders = await getAllOrders(userId);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 p-4">
-      <div className="bg-white p-4 sm:p-8 rounded-xl shadow-lg w-full max-w-4xl">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-grxy-50 p-4">
+      <div className="bg-whxte p-4 sm:p-8 rounded-xl shadow-lg w-full max-w-4xl">
         <h1 className="text-4xl font-bold text-gray-900 tracking-tight mb-8">
           My Orders
         </h1>
@@ -71,7 +71,7 @@ const Orders = async () => {
                     <div className="sm:text-right">
                       <p className="text-sm text-gray-600 mb-1">Total Amount</p>
                       <p className="font-bold text-lg">
-                        ksh {formatPrice(order.totalPrice!)}
+                        ksh {formatPriceFromInt(order.totalPrice!)}
                       </p>
                     </div>
                   </div>
@@ -81,11 +81,13 @@ const Orders = async () => {
                     <div className="mt-4 p-3 sm:p-4 bg-red-50 rounded-lg">
                       <p className="text-red-600 font-medium mb-1 text-sm sm:text-base">
                         Discount Applied: ksh{" "}
-                        {formatPrice(order.amountDiscount)}
+                        {formatPriceFromInt(order.amountDiscount)}
                       </p>
                       <p className="text-sm text-gray-600">
                         Original subtotal: ksh{" "}
-                        {formatPrice(order.totalPrice! + order.amountDiscount)}
+                        {formatPriceFromInt(
+                          order.totalPrice! + order.amountDiscount
+                        )}
                       </p>
                     </div>
                   )}
@@ -125,7 +127,7 @@ const Orders = async () => {
                         <p className="font-medium text-right">
                           ksh{" "}
                           {product.product?.price && product.quantity
-                            ? formatPrice(
+                            ? formatPriceFromInt(
                                 product.product.price * product.quantity
                               )
                             : "N/A"}

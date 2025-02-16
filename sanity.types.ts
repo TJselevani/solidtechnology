@@ -628,8 +628,113 @@ export type ALL_MANUFACTURERS_QUERYResult = Array<{
 
 // Source: ./src/sanity/lib/queries/products/getAllProducts.ts
 // Variable: ALL_PRODUCTS_QUERY
-// Query: *[_type == "product"] | order(name asc)
+// Query: *[_type == "product"] | order(name asc){          ...,          manufacturer-> { _id, name, country, logo }, // Fetching manufacturer data          type->{ _id, title, description }        }
 export type ALL_PRODUCTS_QUERYResult = Array<{
+  _id: string;
+  _type: "product";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  type: {
+    _id: string;
+    title: string | null;
+    description: string | null;
+  } | null;
+  manufacturer: {
+    _id: string;
+    name: string | null;
+    country: string | null;
+    logo: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    } | null;
+  } | null;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  description?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
+    listItem?: "bullet";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    _key: string;
+  }>;
+  ramCapacity?: "12" | "16" | "32" | "4" | "8";
+  storage?: "1024" | "128" | "2048" | "256" | "512";
+  cpuGeneration?: "10" | "11" | "12" | "13" | "3" | "4" | "5" | "6" | "7" | "8";
+  cpuType?: "celeron" | "core i3" | "core i5" | "core i7" | "core i9" | "Pentium";
+  screenSize?: string;
+  weight?: string;
+  batteryLife?: string;
+  operatingSystem?: string;
+  price?: number;
+  categories?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "category";
+  }>;
+  stock?: number;
+  galleryImages?: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    caption?: string;
+    _type: "image";
+    _key: string;
+  }>;
+}>;
+
+// Source: ./src/sanity/lib/queries/products/getFeaturedProducts.ts
+// Variable: FEATURED_PRODUCTS_QUERY
+// Query: *[_type == "product"] | order(name asc)
+export type FEATURED_PRODUCTS_QUERYResult = Array<{
   _id: string;
   _type: "product";
   _createdAt: string;
@@ -1019,7 +1124,8 @@ declare module "@sanity/client" {
     "\n    *[_type == \"order\" && clerkUserId == $userId] | order(orderDate desc) {\n      ...,\n      products[]{\n        ...,\n        product->\n      }\n    }\n  ": ALL_ORDERS_QUERYResult;
     "\n        *[_type == \"category\"] | order(name asc)\n    ": ALL_CATEGORIES_QUERYResult;
     "\n    *[_type == \"manufacturer\"] | order(name asc)\n  ": ALL_MANUFACTURERS_QUERYResult;
-    "\n        *[_type == \"product\"] | order(name asc)\n    ": ALL_PRODUCTS_QUERYResult;
+    "\n        *[_type == \"product\"] | order(name asc){\n          ...,\n          manufacturer-> { _id, name, country, logo }, // Fetching manufacturer data\n          type->{ _id, title, description }\n        }\n    ": ALL_PRODUCTS_QUERYResult;
+    "\n        *[_type == \"product\"] | order(name asc)\n    ": FEATURED_PRODUCTS_QUERYResult;
     "\n        *[_type == \"product\" && references(*[_type == \"category\" && slug.current == $categorySlug]._id)] | order(name asc) \n    ": PRODUCT_SEARCH_QUERY_BY_CATEGORYResult;
     "\n        *[_type == \"product\" && name match $searchParam ] | order(name asc)    \n    ": PRODUCT_SEARCH_QUERY_BY_NAMEResult;
     "\n        *[_type == \"product\" && slug.current == $slug] | order(name asc) [0]    \n    ": PRODUCT_SEARCH_QUERY_BY_SLUGResult;
