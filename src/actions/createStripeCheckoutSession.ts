@@ -16,7 +16,7 @@ export type GroupedBasketItem = {
   quantity: number;
 };
 
-export async function createCheckoutSession(
+export async function createStripeCheckoutSession(
   items: GroupedBasketItem[],
   metadata: Metadata
 ) {
@@ -78,7 +78,7 @@ export async function createCheckoutSession(
 
     return session.url;
   } catch (error) {
-    console.error("", error);
+    console.error("Stripe payment creation failed", error);
     throw error;
   }
 }

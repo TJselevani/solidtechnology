@@ -12,7 +12,6 @@ import Form from "next/form";
 import React, { useEffect, useState } from "react";
 import { PackageIcon, TrolleyIcon } from "@sanity/icons";
 import useBasketStore from "@/store/store";
-import ThemeToggle from "../theme/toggleTheme";
 import { SITE_NAME } from "@/constants/constants";
 import Image from "next/image";
 import { SITE_LOGO } from "@/constants/images";
@@ -40,26 +39,26 @@ export default function Header() {
           <div className="flex items-center w-full md:w-auto justify-between">
             <Link href="/home" className="flex items-center space-x-3">
               {SITE_LOGO ? (
-                <span className="brightness-40 contrast-125 drop-shadow-md">
-                  <Image
-                    src={SITE_LOGO}
-                    alt="Site Logo"
-                    width={90}
-                    className="hover:opacity-75 transition-opacity duration-200"
-                    priority
-                  />
-                </span>
+                <div className="flex items-center justify-center">
+                  <span className="brightness-40 contrast-125 drop-shadow-md">
+                    <Image
+                      src={SITE_LOGO}
+                      alt="Site Logo"
+                      width={90}
+                      className="hover:opacity-75 transition-opacity duration-200"
+                      priority
+                    />
+                  </span>
+                  <span className="px-8 text-2xl text-center font-bold text-green-600 hover:opacity-50 md:hidden lg:hidden">
+                    {SITE_NAME}
+                  </span>
+                </div>
               ) : (
                 <span className="text-2xl font-bold text-blue-500 hover:opacity-50">
                   {SITE_NAME}
                 </span>
               )}
             </Link>
-
-            {/* Theme toggle on mobile */}
-            <div className="md:hidden">
-              <ThemeToggle />
-            </div>
           </div>
 
           {/* Search Bar */}
@@ -84,8 +83,8 @@ export default function Header() {
             {/* Basket Button */}
             <Link
               href="/basket"
-              className="relative inline-flex items-center justify-around space-x-2 bg-blue-500 hover:bg-blue-700 
-                text-white font-bold py-2 px-4 rounded transition-colors duration-200"
+              className="relative inline-flex items-center justify-around space-x-2 dark:bg-blue-500 dark:hover:bg-blue-700 
+                text-white font-bold py-2 px-4 rounded transition-colors duration-200 bg-primary hover:bg-primary/90"
             >
               <TrolleyIcon className="w-5 h-5" />
               <span className="hidden sm:inline">My Basket</span>
@@ -104,8 +103,8 @@ export default function Header() {
               <SignedIn>
                 <Link
                   href="/orders"
-                  className="inline-flex items-center space-x-2 bg-blue-500 hover:bg-blue-700 
-                    text-white font-bold py-2 px-4 rounded transition-colors duration-200"
+                  className="inline-flex items-center space-x-2 dark:bg-blue-500 dark:hover:bg-blue-700 
+                    text-white font-bold py-2 px-4 rounded transition-colors duration-200 bg-primary hover:bg-primary/90"
                 >
                   <PackageIcon className="w-5 h-5" />
                   <span className="hidden sm:inline">My Orders</span>

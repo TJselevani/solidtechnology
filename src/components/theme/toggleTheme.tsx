@@ -9,7 +9,7 @@ const ThemeToggle = () => {
   return (
     <button
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-      className="p-2 rounded bg-blue-500 text-white"
+      className="p-2 rounded dark:bg-gray-50 text-white bg-primary hover:bg-primary/90"
     >
       {theme === "dark" ? <RiSunLine /> : <RiMoonLine />}
     </button>

@@ -68,6 +68,24 @@ export type Geopoint = {
   alt?: number;
 };
 
+export type Feature = {
+  _id: string;
+  _type: "feature";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  active?: boolean;
+  products?: Array<{
+    product?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "product";
+    };
+    _key: string;
+  }>;
+};
+
 export type Advertisement = {
   _id: string;
   _type: "advertisement";
@@ -153,12 +171,18 @@ export type Order = {
   _updatedAt: string;
   _rev: string;
   orderNumber?: string;
-  stripeCheckoutSessionId?: string;
-  stripeCustomerId?: string;
   clerkUserId?: string;
   customerName?: string;
-  email?: string;
+  customerPhone?: string;
+  customerEmail?: string;
+  paymentMethod?: "CARD" | "M-PESA";
+  stripeCustomerId?: string;
+  stripeCheckoutSessionId?: string;
   stripePaymentIntentId?: string;
+  mpesaPaymentDetails?: string;
+  mpesaTrackingId?: string;
+  mpesaReceiptNumber?: string;
+  phoneNumber?: string;
   products?: Array<{
     product?: {
       _ref: string;
@@ -172,7 +196,7 @@ export type Order = {
   totalPrice?: number;
   currency?: string;
   amountDiscount?: number;
-  status?: "pending" | "paid" | "Shipped" | "Delivered" | "Cancelled";
+  status?: "pending" | "paid" | "shipped" | "delivered" | "cancelled";
   orderDate?: string;
 };
 
@@ -416,7 +440,7 @@ export type SanityImageMetadata = {
   isOpaque?: boolean;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Advertisement | ProductPart | Sale | Order | Product | Manufacturer | FormFactor | Category | Slug | BlockContent | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Feature | Advertisement | ProductPart | Sale | Order | Product | Manufacturer | FormFactor | Category | Slug | BlockContent | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries/banners/getActiveSaleByCouponCode.ts
 // Variable: ACTIVE_SALE_BY_COUPON_QUERY
@@ -479,12 +503,18 @@ export type ALL_ORDERS_QUERYResult = Array<{
   _updatedAt: string;
   _rev: string;
   orderNumber?: string;
-  stripeCheckoutSessionId?: string;
-  stripeCustomerId?: string;
   clerkUserId?: string;
   customerName?: string;
-  email?: string;
+  customerPhone?: string;
+  customerEmail?: string;
+  paymentMethod?: "CARD" | "M-PESA";
+  stripeCustomerId?: string;
+  stripeCheckoutSessionId?: string;
   stripePaymentIntentId?: string;
+  mpesaPaymentDetails?: string;
+  mpesaTrackingId?: string;
+  mpesaReceiptNumber?: string;
+  phoneNumber?: string;
   products: Array<{
     product: {
       _id: string;
@@ -584,7 +614,7 @@ export type ALL_ORDERS_QUERYResult = Array<{
   totalPrice?: number;
   currency?: string;
   amountDiscount?: number;
-  status?: "Cancelled" | "Delivered" | "paid" | "pending" | "Shipped";
+  status?: "cancelled" | "delivered" | "paid" | "pending" | "shipped";
   orderDate?: string;
 }>;
 

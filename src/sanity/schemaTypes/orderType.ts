@@ -14,17 +14,6 @@ export const orderType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "stripeCheckoutSessionId",
-      title: "Stripe Checkout Session ID",
-      type: "string",
-    }),
-    defineField({
-      name: "stripeCustomerId",
-      title: "Stripe Customer ID",
-      type: "string",
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
       name: "clerkUserId",
       title: "Clerk User ID",
       type: "string",
@@ -37,17 +26,74 @@ export const orderType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "email",
+      name: "customerPhone",
+      title: "Customer Phone",
+      type: "string",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "customerEmail",
       title: "Customer Email",
       type: "string",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "paymentMethod",
+      title: "Payment Method",
+      type: "string",
+      options: {
+        list: ["CARD", "M-PESA"],
+      },
+      validation: (Rule) => Rule.required(),
+    }),
+
+    // Stripe Payment Fields (Only visible for CARD payments)
+    defineField({
+      name: "stripeCustomerId",
+      title: "Stripe Customer ID",
+      type: "string",
+      hidden: ({ document }) => document?.paymentMethod !== "CARD",
+    }),
+    defineField({
+      name: "stripeCheckoutSessionId",
+      title: "Stripe Checkout Session ID",
+      type: "string",
+      hidden: ({ document }) => document?.paymentMethod !== "CARD",
+    }),
+    defineField({
       name: "stripePaymentIntentId",
       title: "Stripe Payment Intent ID",
       type: "string",
-      validation: (Rule) => Rule.required(),
+      hidden: ({ document }) => document?.paymentMethod !== "CARD",
     }),
+
+    // Mpesa Payment Fields (Only visible for M-PESA payments)
+    defineField({
+      name: "mpesaPaymentDetails",
+      title: "Mpesa Payment Details",
+      type: "string",
+      hidden: ({ document }) => document?.paymentMethod !== "M-PESA",
+    }),
+    defineField({
+      name: "mpesaTrackingId",
+      title: "Mpesa Tracking ID",
+      type: "string",
+      hidden: ({ document }) => document?.paymentMethod !== "M-PESA",
+    }),
+    defineField({
+      name: "mpesaReceiptNumber",
+      title: "Mpesa Receipt Number",
+      type: "string",
+      hidden: ({ document }) => document?.paymentMethod !== "M-PESA",
+    }),
+    defineField({
+      name: "phoneNumber",
+      title: "Phone Number",
+      type: "string",
+      hidden: ({ document }) => document?.paymentMethod !== "M-PESA",
+    }),
+
+    // Product Details
     defineField({
       name: "products",
       title: "Products",
@@ -79,7 +125,7 @@ export const orderType = defineType({
             prepare(select) {
               return {
                 title: `${select.product} x ${select.quantity}`,
-                subtitle: `${select.price * select.quantity}`,
+                subtitle: `${select.price * select.quantity} ${select.currency}`,
                 media: select.image,
               };
             },
@@ -87,6 +133,8 @@ export const orderType = defineType({
         }),
       ],
     }),
+
+    // Pricing Fields
     defineField({
       name: "totalPrice",
       title: "Total Price",
@@ -105,20 +153,24 @@ export const orderType = defineType({
       type: "number",
       validation: (Rule) => Rule.min(0),
     }),
+
+    // Order Status
     defineField({
       name: "status",
       title: "Order Status",
       type: "string",
       options: {
         list: [
-          { title: "pending", value: "pending" },
+          { title: "Pending", value: "pending" },
           { title: "Paid", value: "paid" },
-          { title: "Shipped", value: "Shipped" },
-          { title: "Delivered", value: "Delivered" },
-          { title: "Cancelled", value: "Cancelled" },
+          { title: "Shipped", value: "shipped" },
+          { title: "Delivered", value: "delivered" },
+          { title: "Cancelled", value: "cancelled" },
         ],
       },
     }),
+
+    // Order Date
     defineField({
       name: "orderDate",
       title: "Order Date",
@@ -132,7 +184,7 @@ export const orderType = defineType({
       amount: "totalPrice",
       currency: "currency",
       orderId: "orderNumber",
-      email: "email",
+      email: "customerEmail",
     },
     prepare(select) {
       const orderIdSnippet = `${select.orderId.slice(0, 5)}...${select.orderId.slice(-5)}`;
