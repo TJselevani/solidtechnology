@@ -27,10 +27,13 @@ const MpesaPayment = ({
   amount,
   onClose,
 }: MpesaPaymentParams) => {
+  // @ts-expect-error: IntaSend might not be defined on window
+
   new window.IntaSend({
     publicAPIKey: "ISPubKey_test_f3c529f7-96cb-4d8c-aa1f-d7fb50a9a8f3",
     live: false,
   })
+    // @ts-expect-error: Parameter 'response' implicitly has an 'any' type.
     .on("COMPLETE", async (response) => {
       console.log("COMPLETE:", response);
 
@@ -81,7 +84,8 @@ const MpesaPayment = ({
         console.error("Error processing payment:", error);
       }
     })
-    .on("FAILED", (response: any) => {
+    // @ts-expect-error: Parameter 'response' implicitly has an 'any' type.
+    .on("FAILED", (response) => {
       console.log("FAILED", response);
     })
     .on("IN-PROGRESS", () => {
