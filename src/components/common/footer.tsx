@@ -2,7 +2,9 @@
 
 import React from "react";
 import Link from "next/link";
-import { FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";
+import { FaFacebook, FaTwitter, FaInstagram, FaWhatsapp } from "react-icons/fa";
+import Image from "next/image";
+import { SITE_LOGO } from "@/constants/images";
 
 const Footer = () => {
   return (
@@ -10,11 +12,20 @@ const Footer = () => {
       <div className="container mx-auto px-4">
         <div className="flex flex-col sm:flex-row justify-between items-center">
           <div className="mb-4 sm:mb-0">
-            <Link
-              href="/"
-              className="text-xl font-bold text-blue-400 hover:underline"
-            >
-              Solid Technology
+            <Link href="/home" className="flex items-center space-x-3">
+              {SITE_LOGO && (
+                <div className="flex items-center justify-center">
+                  <span className="brightness-40 contrast-125 drop-shadow-md">
+                    <Image
+                      src={SITE_LOGO}
+                      alt="Site Logo"
+                      width={90}
+                      className="hover:opacity-75 transition-opacity duration-200"
+                      priority
+                    />
+                  </span>
+                </div>
+              )}
             </Link>
           </div>
 
@@ -54,6 +65,14 @@ const Footer = () => {
               rel="noopener noreferrer"
             >
               <FaInstagram className="w-6 h-6 text-blue-400 hover:text-blue-500" />
+            </a>
+
+            <a
+              href="https://whatsapp.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaWhatsapp className="w-6 h-6 text-blue-400 hover:text-blue-500" />
             </a>
           </div>
         </div>

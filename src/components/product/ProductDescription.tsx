@@ -1,9 +1,9 @@
 "use client";
 
 import { Product } from "../../../sanity.types";
-import AddToBasketButton from "@/components/basket/addToBasket";
 import { formatPriceFromString } from "@/utils/formatPrice";
 import { useState } from "react";
+import AddToCart from "../basket/addToCart";
 
 // Define variant options
 const STORAGE_OPTIONS = ["128", "256", "512", "1024", "2048"];
@@ -98,7 +98,7 @@ export function ProductDescription({ product }: { product: Product }) {
 
         {/* Add to Basket */}
         <div className="mt-8">
-          <AddToBasketButton product={product} disabled={isOutOfStock} />
+          <AddToCart product={product} disabled={isOutOfStock} />
           {isOutOfStock && (
             <p className="text-red-500 mt-2">
               This product is currently out of stock

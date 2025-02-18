@@ -14,7 +14,7 @@ const ProductGrid = ({ products }: { products: Product[] }) => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="w-full mx-auto px-4 py-8">
       <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6 lg:gap-2">
         <AnimatePresence>
           {products.map((product) => (

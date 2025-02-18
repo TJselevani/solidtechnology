@@ -42,7 +42,7 @@ function BasketPage() {
 
   if (groupedItems.length === 0) {
     return (
-      <div className="container mx-auto p-8 flex flex-col items-center justify-center min-h-[60vh]">
+      <div className="container mx-auto p-8 flex flex-col items-center justify-center min-h-[80vh]">
         <ShoppingBag className="w-16 h-16 text-gray-400 mb-4" />
         <h1 className="text-3xl font-bold mb-4 text-gray-800">
           Your basket is empty
@@ -108,32 +108,33 @@ function BasketPage() {
               className="hover:shadow-md transition-shadow duration-200"
             >
               <CardContent className="p-4">
-                <div className="flex items-center cursor-pointer gap-4">
-                  <Link href={`/product/${item.product.slug?.current}`}>
-                    <div className="relative w-24 h-24 rounded-lg overflow-hidden">
-                      {item.product.image && (
-                        <Image
-                          src={imageUrl(item.product.image).url()}
-                          alt={item.product.name ?? "Product"}
-                          className="object-contain"
-                          fill
-                        />
-                      )}
+                <div className="flex flex-col lg:flex-row  items-center justify-between cursor-pointer gap-4">
+                  <div className="flex flex-row items-center justify-around gap-6">
+                    <Link href={`/product/${item.product.slug?.current}`}>
+                      <div className="relative w-24 h-24 rounded-lg overflow-hidden">
+                        {item.product.image && (
+                          <Image
+                            src={imageUrl(item.product.image).url()}
+                            alt={item.product.name ?? "Product"}
+                            className="object-contain"
+                            fill
+                          />
+                        )}
+                      </div>
+                    </Link>
+
+                    <div className="flex-grow">
+                      <h2 className="text-xl font-semibold mb-1">
+                        {item.product.name}
+                      </h2>
+                      <p className="text-gray-600">
+                        ksh{" "}
+                        {formatPriceFromString(
+                          ((item.product.price ?? 0) * item.quantity).toFixed(2)
+                        )}
+                      </p>
                     </div>
-                  </Link>
-
-                  <div className="flex-grow">
-                    <h2 className="text-xl font-semibold mb-1">
-                      {item.product.name}
-                    </h2>
-                    <p className="text-gray-600">
-                      ksh{" "}
-                      {formatPriceFromString(
-                        ((item.product.price ?? 0) * item.quantity).toFixed(2)
-                      )}
-                    </p>
                   </div>
-
                   <div className="flex items-center">
                     <AddToBasketButton
                       product={item.product}

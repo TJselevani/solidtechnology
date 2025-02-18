@@ -6,6 +6,12 @@ import { Phone } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { BasketItem } from "@/store/store";
 
+// declare global {
+//   interface Window {
+//     IntaSend?;
+//   }
+// }
+
 interface MpesaPaymentParams {
   orderNumber: string;
   clerkUserId: string;
@@ -19,78 +25,86 @@ interface MpesaPaymentParams {
 
 const MpesaPayment = ({
   orderNumber,
-  clerkUserId,
-  customerName,
+  // clerkUserId,
+  // customerName,
   customerPhone,
-  customerEmail,
-  products,
+  // customerEmail,
+  // products,
   amount,
-  onClose,
 }: MpesaPaymentParams) => {
-  // @ts-expect-error: IntaSend might not be defined on window
+  // useEffect(() => {
+  //   if (typeof window !== "undefined" && window.IntaSend) {
+  //     const intasend = new window.IntaSend({
+  //       publicAPIKey: "ISPubKey_test_f3c529f7-96cb-4d8c-aa1f-d7fb50a9a8f3",
+  //       live: false,
+  //     });
 
-  new window.IntaSend({
-    publicAPIKey: "ISPubKey_test_f3c529f7-96cb-4d8c-aa1f-d7fb50a9a8f3",
-    live: false,
-  })
-    // @ts-expect-error: Parameter 'response' implicitly has an 'any' type.
-    .on("COMPLETE", async (response) => {
-      console.log("COMPLETE:", response);
+  //     intasend
+  //       .on("COMPLETE", async (response) => {
+  //         console.log("COMPLETE:", response);
 
-      // Extract transaction details (update keys based on actual API response)
-      const {
-        transaction_id: paymentId, // Unique payment ID
-        receipt_number: mpesaReceiptNumber, // M-Pesa receipt number
-        phone_number: phoneNumber, // Customer's phone number
-        ...mpesaPaymentDetails // Other payment details
-      } = response.data || response.transaction || {}; // Adjust based on response format
+  //         // Extract transaction details
+  //         const {
+  //           transaction_id: paymentId,
+  //           receipt_number: mpesaReceiptNumber,
+  //           phone_number: phoneNumber,
+  //           ...mpesaPaymentDetails
+  //         } = response.data || response.transaction || {}; // Adjust based on response format
 
-      try {
-        const apiResponse = await fetch("/api/webhook/payments/mpesa", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            orderNumber,
-            clerkUserId,
-            customerName,
-            customerPhone,
-            customerEmail,
-            mpesaPaymentDetails,
-            paymentId,
-            mpesaReceiptNumber,
-            phoneNumber,
-            products,
-            amount,
-          }),
-        });
+  //         try {
+  //           const apiResponse = await fetch("/api/webhook/payments/mpesa", {
+  //             method: "POST",
+  //             headers: { "Content-Type": "application/json" },
+  //             body: JSON.stringify({
+  //               orderNumber,
+  //               clerkUserId,
+  //               customerName,
+  //               customerPhone,
+  //               customerEmail,
+  //               mpesaPaymentDetails,
+  //               paymentId,
+  //               mpesaReceiptNumber,
+  //               phoneNumber,
+  //               products,
+  //               amount,
+  //             }),
+  //           });
 
-        // Determine the base URL based on the environment
-        const isProduction = process.env.NODE_ENV === "production";
-        const baseUrl = isProduction
-          ? `https://${process.env.VERCEL_URL}`
-          : process.env.NEXT_PUBLIC_BASE_URL;
-        const successUrl = `${baseUrl}/success?session_id={checkout_session_Id}&orderNumber=${orderNumber}`;
+  //           // Determine the base URL based on the environment
+  //           const isProduction = process.env.NODE_ENV === "production";
+  //           const baseUrl = isProduction
+  //             ? `https://${process.env.VERCEL_URL}`
+  //             : process.env.NEXT_PUBLIC_BASE_URL;
+  //           const successUrl = `${baseUrl}/success?session_id={checkout_session_Id}&orderNumber=${orderNumber}`;
 
-        if (apiResponse.ok) {
-          console.log("Payment recorded successfully.");
-          onClose?.();
-          window.location.href = successUrl;
-        } else {
-          console.error("Payment recording failed.");
-        }
-      } catch (error) {
-        console.error("Error processing payment:", error);
-      }
-    })
-    // @ts-expect-error: Parameter 'response' implicitly has an 'any' type.
-    .on("FAILED", (response) => {
-      console.log("FAILED", response);
-    })
-    .on("IN-PROGRESS", () => {
-      console.log("IN PROGRESS...");
-    });
+  //           if (apiResponse.ok) {
+  //             console.log("Payment recorded successfully.");
+  //             onClose?.();
+  //             window.location.href = successUrl;
+  //           } else {
+  //             console.error("Payment recording failed.");
+  //           }
+  //         } catch (error) {
+  //           console.error("Error processing payment:", error);
+  //         }
+  //       })
+  //       .on("FAILED", (response) => {
+  //         console.log("FAILED", response);
+  //       })
+  //       .on("IN-PROGRESS", () => {
+  //         console.log("IN PROGRESS...");
+  //       });
+  //   }
+  // }, [
+  //   orderNumber,
+  //   clerkUserId,
+  //   customerName,
+  //   customerPhone,
+  //   customerEmail,
+  //   products,
+  //   amount,
+  //   onClose,
+  // ]);
 
   return (
     <Card className="w-full max-w-md mx-auto">

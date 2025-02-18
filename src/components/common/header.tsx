@@ -30,34 +30,17 @@ export default function Header() {
   if (!mounted) return null;
 
   return (
-    <header className="px-4 py-3 space-y-4 md:space-y-0">
+    <header className="w-full px-4 py-3 space-y-4 md:space-y-0">
       {/* Main header container */}
-      <div className="max-w-7xl mx-auto">
+      <div className="w-full mx-auto">
         {/* Top row - Logo, Search, Actions */}
-        <div className="flex flex-col md:flex-row items-center gap-4">
+        <div className="flex flex-col md:flex-row items-center gap-4 w-full">
           {/* Logo Section */}
-          <div className="flex items-center w-full md:w-auto justify-between">
+          <div className="flex items-center justify-center">
             <Link href="/home" className="flex items-center space-x-3">
-              {SITE_LOGO ? (
-                <div className="flex items-center justify-center">
-                  <span className="brightness-40 contrast-125 drop-shadow-md">
-                    <Image
-                      src={SITE_LOGO}
-                      alt="Site Logo"
-                      width={90}
-                      className="hover:opacity-75 transition-opacity duration-200"
-                      priority
-                    />
-                  </span>
-                  <span className="px-8 text-2xl text-center font-bold text-green-600 hover:opacity-50 md:hidden lg:hidden">
-                    {SITE_NAME}
-                  </span>
-                </div>
-              ) : (
-                <span className="text-2xl font-bold text-blue-500 hover:opacity-50">
-                  {SITE_NAME}
-                </span>
-              )}
+              <span className="text-3xl font-bold text-black hover:opacity-50">
+                {SITE_NAME}
+              </span>
             </Link>
           </div>
 
@@ -67,18 +50,31 @@ export default function Header() {
               type="text"
               name="query"
               placeholder="Search for products"
-              className="w-full bg-custom-black-3 glass opacity-20 text-gray-800 px-4 py-2 rounded 
+              className="w-full bg-custom-black-1 glass opacity-60 text-gray-800 px-4 py-2 rounded 
                 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:text-white 
                 focus:font-extrabold focus:opacity-80 focus:ring-opacity-50 border"
             />
           </Form>
 
           {/* Actions Section */}
-          <div className="flex items-center gap-3 w-full md:w-auto justify-between">
-            {/* Theme toggle on desktop */}
-            {/* <div className="hidden md:block">
-              <ThemeToggle />
-            </div> */}
+          <div className="flex items-center gap-3 w-full md:w-auto justify-around">
+            <div className="hidden lg:block">
+              <Link href="/home" className="flex items-center space-x-3">
+                {SITE_LOGO && (
+                  <div className="flex items-center justify-center">
+                    <span className="brightness-40 contrast-125 drop-shadow-md">
+                      <Image
+                        src={SITE_LOGO}
+                        alt="Site Logo"
+                        width={90}
+                        className="hover:opacity-75 transition-opacity duration-200"
+                        priority
+                      />
+                    </span>
+                  </div>
+                )}
+              </Link>
+            </div>
 
             {/* Basket Button */}
             <Link
@@ -87,7 +83,7 @@ export default function Header() {
                 text-white font-bold py-2 px-4 rounded transition-colors duration-200 bg-primary hover:bg-primary/90"
             >
               <TrolleyIcon className="w-5 h-5" />
-              <span className="hidden sm:inline">My Basket</span>
+              <span className="">My Basket</span>
               {itemCount > 0 && (
                 <span
                   className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full 
@@ -107,7 +103,7 @@ export default function Header() {
                     text-white font-bold py-2 px-4 rounded transition-colors duration-200 bg-primary hover:bg-primary/90"
                 >
                   <PackageIcon className="w-5 h-5" />
-                  <span className="hidden sm:inline">My Orders</span>
+                  <span className="">My Orders</span>
                 </Link>
               </SignedIn>
 

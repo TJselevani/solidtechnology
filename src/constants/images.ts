@@ -1,4 +1,4 @@
-import SITE_LOGO from "../../public/images/appLogo-removebg.png";
+import SITE_LOGO from "../../public/images/appLogo-removebg-modified-modified.png";
 
 import SITE_DARK_LOGO from "../../public/images/appLogo.jpg";
 
