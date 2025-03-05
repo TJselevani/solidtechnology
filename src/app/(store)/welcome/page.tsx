@@ -18,7 +18,7 @@ export default async function Welcome() {
       {/* Get Started Button */}
       <div className="flex justify-center items-center my-4">
         <Link href="/home">
-          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+          <button className="bg-primary hover:bg-primary/90 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
             Get Started
           </button>
         </Link>

@@ -23,7 +23,7 @@ const ManufacturerFilter: React.FC<ManufacturerFilterProps> = ({
         onClick={() => handleFilterClick("")}
         className={`px-3 sm:px-4 py-2 text-sm sm:text-base rounded transition-colors duration-200 ${
           selectedManufacturer === ""
-            ? "bg-blue-500 text-white"
+            ? "bg-primary text-white"
             : "bg-gray-200 hover:bg-gray-300"
         }`}
       >
@@ -35,7 +35,7 @@ const ManufacturerFilter: React.FC<ManufacturerFilterProps> = ({
           onClick={() => handleFilterClick(manufacturer._id)}
           className={`px-3 sm:px-4 py-2 text-sm sm:text-base rounded transition-colors duration-200 ${
             selectedManufacturer === manufacturer._id
-              ? "bg-blue-500 text-white"
+              ? "bg-primary text-white"
               : "bg-gray-200 hover:bg-gray-300"
           }`}
         >

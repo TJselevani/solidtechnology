@@ -46,7 +46,7 @@ const Footer = () => {
 
           <div className="flex space-x-4 mt-4 sm:mt-0">
             <a
-              href="https://facebook.com"
+              href="https://facebook.com/SureBytes%20%It%20%Solutions"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -60,7 +60,7 @@ const Footer = () => {
               <FaTwitter className="w-6 h-6 text-blue-400 hover:text-blue-500" />
             </a>
             <a
-              href="https://instagram.com"
+              href="https://instagram.com/@_maina_sam"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -68,7 +68,7 @@ const Footer = () => {
             </a>
 
             <a
-              href="https://whatsapp.com"
+              href="https://wa.me/0794579698"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -82,6 +82,9 @@ const Footer = () => {
             &copy; {new Date().getFullYear()} Solid Technology. All rights
             reserved.
           </p>
+          <br />
+          <br />
+          <p>Powered by tjselevani</p>
         </div>
       </div>
     </footer>

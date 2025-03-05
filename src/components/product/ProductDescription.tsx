@@ -4,6 +4,8 @@ import { Product } from "../../../sanity.types";
 import { formatPriceFromString } from "@/utils/formatPrice";
 import { useState } from "react";
 import AddToCart from "../basket/addToCart";
+import DetailsProse from "./productDetails";
+import WhatsAppChatButton from "../whatsapp/WhatsappChatButton";
 
 // Define variant options
 const STORAGE_OPTIONS = ["128", "256", "512", "1024", "2048"];
@@ -31,6 +33,8 @@ export function ProductDescription({ product }: { product: Product }) {
     { label: "Type", value: "Device" },
   ].filter((spec) => spec.value); // Only show specs that have values
 
+  const proseDetails = product.details;
+
   // Render variant option buttons
   const renderVariantOptions = (
     options: string[],
@@ -45,7 +49,7 @@ export function ProductDescription({ product }: { product: Product }) {
             key={option}
             className={`px-4 py-2 rounded-full text-sm font-semibold ${
               currentValue === option
-                ? "bg-blue-500 text-white"
+                ? "bg-primary text-white"
                 : "bg-gray-200 text-gray-700"
             }`}
           >
@@ -71,17 +75,25 @@ export function ProductDescription({ product }: { product: Product }) {
           ksh {formatPriceFromString(product.price!.toFixed(2))}
         </div>
 
+        {proseDetails && <DetailsProse details={product.description} />}
+
         {/* Variant Specifications */}
-        <div className="space-y-2">
-          {renderVariantOptions(CPU_TYPE_OPTIONS, product.cpuType, "Processor")}
-          {renderVariantOptions(
-            CPU_GEN_OPTIONS,
-            product.cpuGeneration,
-            "CPU Generation"
-          )}
-          {renderVariantOptions(RAM_OPTIONS, product.ramCapacity, "RAM")}
-          {renderVariantOptions(STORAGE_OPTIONS, product.storage, "Storage")}
-        </div>
+        {!proseDetails && (
+          <div className="space-y-2">
+            {renderVariantOptions(
+              CPU_TYPE_OPTIONS,
+              product.cpuType,
+              "Processor"
+            )}
+            {renderVariantOptions(
+              CPU_GEN_OPTIONS,
+              product.cpuGeneration,
+              "CPU Generation"
+            )}
+            {renderVariantOptions(RAM_OPTIONS, product.ramCapacity, "RAM")}
+            {renderVariantOptions(STORAGE_OPTIONS, product.storage, "Storage")}
+          </div>
+        )}
 
         {/* Simple Specifications */}
         <div className="mt-8">
@@ -94,6 +106,13 @@ export function ProductDescription({ product }: { product: Product }) {
               </div>
             ))}
           </div>
+        </div>
+
+        <div className="mt-8">
+          <WhatsAppChatButton
+            productName={product.name}
+            productId={product.price?.toString()}
+          />
         </div>
 
         {/* Add to Basket */}

@@ -44,8 +44,8 @@ export default function AddToCart({ product, disabled }: AddToCartProps) {
       <Button
         onClick={() => addItem(product)}
         disabled={disabled}
-        className={`flex-1 h-10 px-6 rounded-full bg-blue-600 text-white flex items-center justify-center 
-        ${disabled ? "cursor-not-allowed opacity-50" : "hover:bg-blue-700"}`}
+        className={`flex-1 h-10 px-6 rounded-full bg-primary text-white flex items-center justify-center 
+        ${disabled ? "cursor-not-allowed opacity-50" : "hover:bg-primary/90"}`}
       >
         <ShoppingCart size={18} className="mr-2" />
         {itemCount !== 0 ? `Added ${itemCount} to Cart` : "Add To Cart"}
