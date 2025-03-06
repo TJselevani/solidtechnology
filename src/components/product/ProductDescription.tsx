@@ -75,7 +75,7 @@ export function ProductDescription({ product }: { product: Product }) {
           ksh {formatPriceFromString(product.price!.toFixed(2))}
         </div>
 
-        {proseDetails && <DetailsProse details={product.description} />}
+        {proseDetails && <DetailsProse details={product.details} />}
 
         {/* Variant Specifications */}
         {!proseDetails && (

@@ -12,8 +12,8 @@ interface DetailsProseProps {
 const DetailsProse: React.FC<DetailsProseProps> = ({
   details,
   fallbackText = "No Description Available",
-  className = "text-xl text-gray-200",
-  containerClassName = "bg-primary p-4 rounded",
+  className = "text-xl text-gray-p00",
+  containerClassName = "bg-gray-50 rounded",
 }) => {
   // If no details or empty array, return fallback
   if (!details || details.length === 0) {
