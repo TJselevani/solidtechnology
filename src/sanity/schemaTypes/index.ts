@@ -10,6 +10,8 @@ import { formFactorType } from "./formFactorType";
 import { productPartType } from "./productPartType";
 import { productAdvertType } from "./productAdvertType";
 import { productFeatureType } from "./ProductFeatureType";
+import { accessoryType } from "./accessoryType";
+import { brandType } from "./brandType";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -23,5 +25,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     productPartType,
     productAdvertType,
     productFeatureType,
+    accessoryType,
+    brandType
   ],
 };

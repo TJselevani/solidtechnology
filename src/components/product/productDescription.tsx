@@ -1,6 +1,14 @@
 import React from "react";
-import { PortableText, PortableTextReactComponents } from "@portabletext/react";
 import { Product } from "../../../sanity.types";
+
+interface ChildBlock {
+  text: string;
+}
+
+interface Block {
+  _type: string;
+  children?: ChildBlock[];
+}
 
 interface DetailsProseProps {
   details?: Product["details"]; // Array of detail blocks from Sanity
@@ -9,62 +17,47 @@ interface DetailsProseProps {
   containerClassName?: string;
 }
 
-const DetailsProse: React.FC<DetailsProseProps> = ({
+const DescriptionProse: React.FC<DetailsProseProps> = ({
   details,
   fallbackText = "No Description Available",
-  className = "text-xl text-gray-p00",
-  containerClassName = "bg-gray-50 rounded",
+  className = "text-xl text-gray-900",
+  containerClassName = "bg-gray-50 rounded p-4",
 }) => {
   // If no details or empty array, return fallback
   if (!details || details.length === 0) {
     return <p className={className}>{fallbackText}</p>;
   }
 
-  // Option 1: Using PortableText to preserve exact formatting
-  // This is the preferred method if your Sanity blocks contain formatting
-  const components: Partial<PortableTextReactComponents> = {
-    block: {
-      normal: ({ children }) => (
-        <div className="whitespace-pre-line">{children}</div>
-      ),
-    },
+  // Extract text from blocks
+  const getBlockText = (block: Block): string => {
+    if (block._type === "block" && block.children) {
+      return block.children.map((child) => child.text).join(" ") || "";
+    }
+    return "";
   };
+
+  // Get all specifications as an array of strings
+  const specifications = details
+    .map((block) => getBlockText(block as Block)) // Ensure type safety
+    .filter((text) => text.trim().length > 0);
 
   return (
     <div className={containerClassName}>
-      <div className={className}>
-        <PortableText value={details} components={components} />
-      </div>
+      <h2 className="px-4 py-4 font-semibold text-lg">Device Specifications</h2>
+      <ul className="list-disc pl-6 space-y-2 text-gray-700">
+        {specifications.map((spec, index) => (
+          <li key={index} className={className}>
+            {spec}
+          </li>
+        ))}
+      </ul>
     </div>
   );
-
-  // Option 2: Alternative method using direct text extraction while preserving line breaks
-  // Uncomment this and comment out the return statement above if you prefer this approach
-
-  /*
-  // Extract text from blocks while preserving line breaks
-  const getText = () => {
-    return details
-      .map(block => {
-        if (block._type === "block") {
-          return block.children?.map(child => child.text).join("");
-        }
-        return "";
-      })
-      .join("\n");
-  };
-
-  return (
-    <div className={containerClassName}>
-      <pre className={`${className} font-sans whitespace-pre-line`}>
-        {getText() || fallbackText}
-      </pre>
-    </div>
-  );
-  */
 };
 
-export default DetailsProse;
+export default DescriptionProse;
+
+// **************************************************************************************************************
 
 // import React from "react";
 
@@ -114,6 +107,8 @@ export default DetailsProse;
 // };
 
 // export default DetailsProse;
+
+// **************************************************************************************************************
 
 // import React from "react";
 // import { PortableText } from "@portabletext/react";
@@ -197,6 +192,102 @@ export default DetailsProse;
 //   //     </div>
 //   //   </div>
 //   // );
+// };
+
+// export default DetailsProse;
+
+// **************************************************************************************************************
+
+// import React from "react";
+// import { PortableText, PortableTextReactComponents } from "@portabletext/react";
+// import { Product } from "../../../sanity.types";
+
+// interface DetailsProseProps {
+//   details?: Product["details"]; // Array of detail blocks from Sanity
+//   fallbackText?: string;
+//   className?: string;
+//   containerClassName?: string;
+// }
+
+// const DetailsProse: React.FC<DetailsProseProps> = ({
+//   details,
+//   fallbackText = "No Description Available",
+//   className = "text-xl text-gray-p00",
+//   containerClassName = "bg-gray-50 rounded",
+// }) => {
+//   // If no details or empty array, return fallback
+//   if (!details || details.length === 0) {
+//     return <p className={className}>{fallbackText}</p>;
+//   }
+
+//   //  Extract text from blocks
+//   const getBlockText = (block) => {
+//     if (block._type === "block") {
+//       return block.children?.map((child) => child.text).join(" ") || " ";
+//     }
+//     return "";
+//   };
+
+//   // Get all specifications as an array of strings
+//   const specifications = details
+//     .map((block) => getBlockText(block))
+//     .filter((text) => text.trim().length > 0);
+
+//   return (
+//     <div className={containerClassName}>
+//       <ul className="list-none space-y-2">
+//         {specifications.map((spec, index) => (
+//           <li key={index} className={`flex items-start ${className}`}>
+//             <span className="text-gray-400 mr-2">•</span>
+//             <span>{spec}</span>
+//           </li>
+//         ))}
+//       </ul>
+//     </div>
+//   );
+
+//   // Option 1: Using PortableText to preserve exact formatting
+//   // This is the preferred method if your Sanity blocks contain formatting
+//   const components: Partial<PortableTextReactComponents> = {
+//     block: {
+//       normal: ({ children }) => (
+//         <div className="whitespace-pre-line">{children}</div>
+//       ),
+//     },
+//   };
+
+//   return (
+//     <div className={containerClassName}>
+//       <div className={className}>
+//         <PortableText value={details} components={components} />
+//       </div>
+//     </div>
+//   );
+
+//   // Option 2: Alternative method using direct text extraction while preserving line breaks
+//   // Uncomment this and comment out the return statement above if you prefer this approach
+
+//   /*
+//   // Extract text from blocks while preserving line breaks
+//   const getText = () => {
+//     return details
+//       .map(block => {
+//         if (block._type === "block") {
+//           return block.children?.map(child => child.text).join("");
+//         }
+//         return "";
+//       })
+//       .join("\n");
+//   };
+
+//   return (
+//     <div className={containerClassName}>
+//       <pre className={`${className} font-sans whitespace-pre-line`}>
+//         {getText() || fallbackText}
+//       </pre>
+//     </div>
+//   );
+//   */
 // };
 
 // export default DetailsProse;

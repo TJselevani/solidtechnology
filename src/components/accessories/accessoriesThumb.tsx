@@ -1,0 +1,57 @@
+import Link from "next/link";
+import Image from "next/image";
+import { imageUrl } from "@/lib/imageUrl";
+import { formatPriceFromString } from "@/utils/formatPrice";
+import { Accessory } from "../../../sanity.types";
+
+const AccessoriesThumb = ({ accessory }: { accessory: Accessory }) => {
+  const isOutOfStock = accessory.stock != null && accessory.stock <= 0;
+  return (
+    <Link
+      href={`/product/${accessory.slug?.current}`}
+      className={`group flex flex-col bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-lg transition-all duration-200 overflow-hidden ${isOutOfStock ? "opacity-50" : ""} p-2 sm:gap-x-4`}
+    >
+      <div className="relative aspect-square w-full h-full overflow-hidden">
+        {accessory.image && (
+          <Image
+            className="object-contain transition-transform duration-300 group-hover:scale-105"
+            src={imageUrl(accessory.image).url()}
+            alt={accessory.name || "Product Image"}
+            fill
+            sizes="(max-width: 760px) 100vw, (max-width:1200px) 50vw, 33vw"
+          />
+        )}
+
+        {isOutOfStock && (
+          <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
+            <span className="text-white font-bold text-lg"> Out of Stock</span>
+          </div>
+        )}
+      </div>
+
+      <div className="p-1">
+        <h2 className="text-lg font-semibold text-black-500 truncate">
+          {accessory.name}
+        </h2>
+
+        <p className="mt-2 text-sm text-gray-600 line-clamp-2">
+          {accessory.description
+            ?.map((block) =>
+              block._type === "block"
+                ? block.children?.map((child) => child.text).join("")
+                : ""
+            )
+            .join("") || "No Description Available"}
+        </p>
+
+        <p className="mt-2 text-lg font-bold text-gray-900">
+          ksh{" "}
+          {accessory.price &&
+            formatPriceFromString(accessory.price?.toFixed(2))}
+        </p>
+      </div>
+    </Link>
+  );
+};
+
+export default AccessoriesThumb;

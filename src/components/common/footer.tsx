@@ -68,7 +68,7 @@ const Footer = () => {
             </a>
 
             <a
-              href="https://wa.me/0794579698"
+              href="https://wa.me/+254794579698"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -82,9 +82,6 @@ const Footer = () => {
             &copy; {new Date().getFullYear()} Solid Technology. All rights
             reserved.
           </p>
-          <br />
-          <br />
-          <p>Powered by tjselevani</p>
         </div>
       </div>
     </footer>

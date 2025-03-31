@@ -68,6 +68,102 @@ export type Geopoint = {
   alt?: number;
 };
 
+export type Accessory = {
+  _id: string;
+  _type: "accessory";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  category?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "category";
+  };
+  brand?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "brand";
+  };
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  description?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote";
+    listItem?: "bullet";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    _key: string;
+  }>;
+  specifications?: Array<{
+    key?: string;
+    value?: string;
+    _key: string;
+  }>;
+  compatibility?: Array<string>;
+  powerConsumption?: string;
+  price?: number;
+  stock?: number;
+  galleryImages?: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    caption?: string;
+    _type: "image";
+    _key: string;
+  }>;
+};
+
+export type Brand = {
+  _id: string;
+  _type: "brand";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  slug?: Slug;
+  description?: string;
+};
+
 export type Feature = {
   _id: string;
   _type: "feature";
@@ -470,7 +566,7 @@ export type SanityImageMetadata = {
   isOpaque?: boolean;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Feature | Advertisement | ProductPart | Sale | Order | Product | Manufacturer | FormFactor | Category | Slug | BlockContent | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Accessory | Brand | Feature | Advertisement | ProductPart | Sale | Order | Product | Manufacturer | FormFactor | Category | Slug | BlockContent | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries/banners/getActiveSaleByCouponCode.ts
 // Variable: ACTIVE_SALE_BY_COUPON_QUERY
@@ -676,6 +772,108 @@ export type ALL_ORDERS_QUERYResult = Array<{
   amountDiscount?: number;
   status?: "cancelled" | "delivered" | "paid" | "pending" | "shipped";
   orderDate?: string;
+}>;
+
+// Source: ./src/sanity/lib/queries/products/getAllAccessories.ts
+// Variable: ALL_ACCESSORIES_QUERY
+// Query: *[_type == "accessory"] | order(name asc)
+export type ALL_ACCESSORIES_QUERYResult = Array<{
+  _id: string;
+  _type: "accessory";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  category?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "category";
+  };
+  brand?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "brand";
+  };
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  description?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
+    listItem?: "bullet";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    _key: string;
+  }>;
+  specifications?: Array<{
+    key?: string;
+    value?: string;
+    _key: string;
+  }>;
+  compatibility?: Array<string>;
+  powerConsumption?: string;
+  price?: number;
+  stock?: number;
+  galleryImages?: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    caption?: string;
+    _type: "image";
+    _key: string;
+  }>;
+}>;
+
+// Source: ./src/sanity/lib/queries/products/getAllBrands.ts
+// Variable: ALL_BRANDS_QUERY
+// Query: *[_type == "brand"] | order(name asc)
+export type ALL_BRANDS_QUERYResult = Array<{
+  _id: string;
+  _type: "brand";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  slug?: Slug;
+  description?: string;
 }>;
 
 // Source: ./src/sanity/lib/queries/products/getAllCategories.ts
@@ -1346,6 +1544,132 @@ export type PRODUCT_SEARCH_QUERY_BY_SLUGResult = {
   }>;
 } | null;
 
+// Source: ./src/sanity/lib/queries/search/searchRelatedProduct.ts
+// Variable: RELATED_PRODUCTS_QUERY
+// Query: *[_type == "product" && _id != $productId && stock > 0] |     score(      // Manufacturer match (highest priority)      (manufacturer._ref == ^.manufacturer._ref) * 3 +      // Form factor match      (type._ref == ^.type._ref) * 2 +      // Category matches      (count(categories[@._ref in ^.categories[]._ref]) > 0) * 1.5 +      // Technical specs matches      (cpuType == ^.cpuType) * 1.2 +      (ramCapacity == ^.ramCapacity) * 1.1 +      (storage == ^.storage) * 1.1 +      // Price proximity (20% range)      (price >= ^.price * 0.8 && price <= ^.price * 1.2) * 0.8    ) |     order(_score desc) [0..5]
+export type RELATED_PRODUCTS_QUERYResult = Array<{
+  _id: string;
+  _type: "product";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  type?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "formFactor";
+  };
+  manufacturer?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "manufacturer";
+  };
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  description?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
+    listItem?: "bullet";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    _key: string;
+  }>;
+  details?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
+    listItem?: "bullet";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    _key: string;
+  }>;
+  ramCapacity?: "12" | "16" | "32" | "4" | "8";
+  storage?: "1024" | "128" | "2048" | "256" | "512";
+  cpuGeneration?: "10" | "11" | "12" | "13" | "3" | "4" | "5" | "6" | "7" | "8";
+  cpuType?: "celeron" | "core i3" | "core i5" | "core i7" | "core i9" | "Pentium";
+  screenSize?: string;
+  weight?: string;
+  batteryLife?: string;
+  operatingSystem?: string;
+  price?: number;
+  categories?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "category";
+  }>;
+  stock?: number;
+  galleryImages?: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    caption?: string;
+    _type: "image";
+    _key: string;
+  }>;
+}>;
+
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
@@ -1353,11 +1677,14 @@ declare module "@sanity/client" {
     "\n        *[ _type == \"sale\" && isActive == true && couponCode == $couponCode ] | order(validFrom desc)[0]\n    ": ACTIVE_SALE_BY_COUPON_QUERYResult;
     "\n    *[_type == \"advertisement\"] | order(title desc){\n      ...,\n      products[]{\n        _key,\n        product->{\n          _id,\n          name,\n          price,\n          image\n        }\n      }\n    }\n  ": ACTIVE_ADVERTISEMENTS_QUERYResult;
     "\n    *[_type == \"order\" && clerkUserId == $userId] | order(orderDate desc) {\n      ...,\n      products[]{\n        ...,\n        product->\n      }\n    }\n  ": ALL_ORDERS_QUERYResult;
+    "\n        *[_type == \"accessory\"] | order(name asc)\n    ": ALL_ACCESSORIES_QUERYResult;
+    "\n        *[_type == \"brand\"] | order(name asc)\n    ": ALL_BRANDS_QUERYResult;
     "\n        *[_type == \"category\"] | order(name asc)\n    ": ALL_CATEGORIES_QUERYResult;
     "\n    *[_type == \"manufacturer\"] | order(name asc)\n  ": ALL_MANUFACTURERS_QUERYResult;
     "\n        *[_type == \"product\"] | order(name asc)\n    ": ALL_PRODUCTS_QUERYResult | FEATURED_PRODUCTS_QUERYResult;
     "\n        *[_type == \"product\" && references(*[_type == \"category\" && slug.current == $categorySlug]._id)] | order(name asc) \n    ": PRODUCT_SEARCH_QUERY_BY_CATEGORYResult;
     "\n        *[_type == \"product\" && name match $searchParam ] | order(name asc)    \n    ": PRODUCT_SEARCH_QUERY_BY_NAMEResult;
     "\n        *[_type == \"product\" && slug.current == $slug] | order(name asc) [0]    \n    ": PRODUCT_SEARCH_QUERY_BY_SLUGResult;
+    "\n    *[_type == \"product\" && _id != $productId && stock > 0] | \n    score(\n      // Manufacturer match (highest priority)\n      (manufacturer._ref == ^.manufacturer._ref) * 3 +\n      // Form factor match\n      (type._ref == ^.type._ref) * 2 +\n      // Category matches\n      (count(categories[@._ref in ^.categories[]._ref]) > 0) * 1.5 +\n      // Technical specs matches\n      (cpuType == ^.cpuType) * 1.2 +\n      (ramCapacity == ^.ramCapacity) * 1.1 +\n      (storage == ^.storage) * 1.1 +\n      // Price proximity (20% range)\n      (price >= ^.price * 0.8 && price <= ^.price * 1.2) * 0.8\n    ) | \n    order(_score desc) [0..5]\n  ": RELATED_PRODUCTS_QUERYResult;
   }
 }

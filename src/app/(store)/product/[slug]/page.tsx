@@ -1,8 +1,12 @@
 // app/products/[slug]/page.tsx
-import { ProductDescription } from "@/components/product/ProductDescription";
+import { ProductCarousel } from "@/components/product/ProductCarousel";
+import DetailsProse from "@/components/product/ProductDetails";
 import Gallery from "@/components/product/ProductGallery";
+import { ProductSpecs } from "@/components/product/ProductSpecs";
 import { searchProductsBySlug } from "@/sanity/lib/queries/search/searchProductsBySlug";
+import { searchRelatedProducts } from "@/sanity/lib/queries/search/searchRelatedProduct";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 
 export const dynamic = "force-static";
 export const revalidate = 60; // revalidate at most every 60 sec
@@ -24,17 +28,32 @@ const ProductPage = async ({ params }: { params: Promise<param> }) => {
     return notFound();
   }
 
+  const relatedProducts = await searchRelatedProducts(
+    product._id,
+    product.name!
+  );
+
+  console.log(relatedProducts.length);
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {" "}
-        {/*  Added grid layout */}
         <div>
           <Gallery product={product} />
         </div>
         <div>
-          <ProductDescription product={product} />
+          <ProductSpecs product={product} />
         </div>
+      </div>
+
+      <div>
+        <DetailsProse details={product.details} />
+      </div>
+
+      <div className="my-8">
+        <Suspense>
+          <ProductCarousel products={relatedProducts} />
+        </Suspense>
       </div>
     </div>
   );

@@ -4,8 +4,8 @@ import { Product } from "../../../sanity.types";
 import { formatPriceFromString } from "@/utils/formatPrice";
 import { useState } from "react";
 import AddToCart from "../basket/addToCart";
-import DetailsProse from "./productDetails";
 import WhatsAppChatButton from "../whatsapp/WhatsappChatButton";
+import DescriptionProse from "./productDescription";
 
 // Define variant options
 const STORAGE_OPTIONS = ["128", "256", "512", "1024", "2048"];
@@ -20,7 +20,7 @@ const CPU_TYPE_OPTIONS = [
 ];
 const CPU_GEN_OPTIONS = ["3", "4", "5", "6", "7", "8", "10", "11", "12", "13"];
 
-export function ProductDescription({ product }: { product: Product }) {
+export function ProductSpecs({ product }: { product: Product }) {
   const [isOutOfStock] = useState(product.stock != null && product.stock <= 0);
 
   // Simple specifications without variants
@@ -75,7 +75,7 @@ export function ProductDescription({ product }: { product: Product }) {
           ksh {formatPriceFromString(product.price!.toFixed(2))}
         </div>
 
-        {proseDetails && <DetailsProse details={product.details} />}
+        {proseDetails && <DescriptionProse details={product.description} />}
 
         {/* Variant Specifications */}
         {!proseDetails && (

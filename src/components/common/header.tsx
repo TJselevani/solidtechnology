@@ -12,7 +12,6 @@ import Form from "next/form";
 import React, { useEffect, useState } from "react";
 import { PackageIcon, TrolleyIcon } from "@sanity/icons";
 import useBasketStore from "@/store/store";
-import { SITE_NAME } from "@/constants/constants";
 import Image from "next/image";
 import { SITE_LOGO } from "@/constants/images";
 
@@ -30,96 +29,107 @@ export default function Header() {
   if (!mounted) return null;
 
   return (
-    <header className="w-full px-4 py-3 space-y-4 md:space-y-0">
-      {/* Main header container */}
-      <div className="w-full mx-auto">
-        {/* Top row - Logo, Search, Actions */}
-        <div className="flex flex-col md:flex-row items-center gap-4 w-full">
-          {/* Logo Section */}
-          <div className="flex items-center justify-center">
-            <Link href="/home" className="flex items-center space-x-3">
-              <span className="text-3xl font-bold text-black hover:opacity-50">
-                {SITE_NAME}
-              </span>
-            </Link>
-          </div>
+    <header className="w-full px-4 md:px-6 py-2 border-b border-gray-200">
+      {/* Top Bar with Phone Number */}
+      <a
+        href="https://wa.me/+254794579698"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <div className="flex justify-end text-sm text-green-600 font-bold py-1 md:py-2">
+          Need Help? <span className="ml-2">(+254) 794579698</span>
+        </div>
+      </a>
 
-          {/* Search Bar */}
-          <Form action="/search" className="w-full md:flex-1 max-w-2xl">
-            <input
-              type="text"
-              name="query"
-              placeholder="Search for products"
-              className="w-full bg-custom-black-1 glass opacity-60 text-gray-800 px-4 py-2 rounded 
-                focus:outline-none focus:ring-2 focus:ring-blue-500 focus:text-white 
-                focus:font-extrabold focus:opacity-80 focus:ring-opacity-50 border"
-            />
-          </Form>
+      {/* Main Header */}
+      <div className="flex flex-col md:flex-row items-center justify-between py-3 space-y-4 md:space-y-0">
+        {/* Logo Section */}
+        <div className="flex justify-center md:justify-start w-full md:w-auto">
+          <Link href="/" className="flex items-center space-x-3">
+            {SITE_LOGO && (
+              <Image
+                src={SITE_LOGO}
+                alt="Site Logo"
+                width={120}
+                className="hover:opacity-75 transition-opacity duration-200"
+                priority
+              />
+            )}
+          </Link>
+        </div>
 
-          {/* Actions Section */}
-          <div className="flex items-center gap-3 w-full md:w-auto justify-around">
-            <div className="hidden lg:block">
-              <Link href="/home" className="flex items-center space-x-3">
-                {SITE_LOGO && (
-                  <div className="flex items-center justify-center">
-                    <span className="brightness-40 contrast-125 drop-shadow-md">
-                      <Image
-                        src={SITE_LOGO}
-                        alt="Site Logo"
-                        width={90}
-                        className="hover:opacity-75 transition-opacity duration-200"
-                        priority
-                      />
-                    </span>
-                  </div>
-                )}
-              </Link>
-            </div>
+        {/* Search Bar */}
+        <Form
+          action="/search"
+          className="flex w-full md:w-3/5 lg:w-1/2 max-w-2xl items-center border bg-custom-black-1 border-primary rounded overflow-hidden"
+        >
+          <input
+            type="text"
+            name="query"
+            placeholder="Search for products"
+            className="w-full px-4 py-2 focus:outline-none"
+          />
+          <button className="bg-primary px-6 py-2 text-white font-bold">
+            SEARCH
+          </button>
+        </Form>
 
-            {/* Basket Button */}
-            <Link
-              href="/basket"
-              className="relative inline-flex items-center justify-around space-x-2 dark:bg-blue-500 dark:hover:bg-blue-700 
+        {/* Account & Cart Section */}
+        <div className="flex items-center space-x-6 w-full md:w-auto justify-center md:justify-end">
+          {/* Basket Button */}
+          <Link
+            href="/basket"
+            className="relative inline-flex items-center justify-around space-x-2 dark:bg-blue-500 dark:hover:bg-blue-700 
                 text-white font-bold py-2 px-4 rounded transition-colors duration-200 bg-primary hover:bg-primary/90"
-            >
-              <TrolleyIcon className="w-5 h-5" />
-              <span className="">My Basket</span>
-              {itemCount > 0 && (
-                <span
-                  className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full 
+          >
+            <TrolleyIcon className="w-5 h-5" />
+            <span className="">My Basket</span>
+            {itemCount > 0 && (
+              <span
+                className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full 
                   w-5 h-5 flex items-center justify-center text-xs"
-                >
-                  {itemCount}
-                </span>
-              )}
-            </Link>
+              >
+                {itemCount}
+              </span>
+            )}
+          </Link>
 
-            {/* User Section */}
-            <ClerkLoaded>
-              <SignedIn>
-                <Link
-                  href="/orders"
-                  className="inline-flex items-center space-x-2 dark:bg-blue-500 dark:hover:bg-blue-700 
+          {/* User Section */}
+          <ClerkLoaded>
+            <SignedIn>
+              <Link
+                href="/orders"
+                className="inline-flex items-center space-x-2 dark:bg-blue-500 dark:hover:bg-blue-700 
                     text-white font-bold py-2 px-4 rounded transition-colors duration-200 bg-primary hover:bg-primary/90"
-                >
-                  <PackageIcon className="w-5 h-5" />
-                  <span className="">My Orders</span>
-                </Link>
-              </SignedIn>
+              >
+                <PackageIcon className="w-5 h-5" />
+                <span className="">My Orders</span>
+              </Link>
+            </SignedIn>
 
-              {user ? (
-                <div className="flex items-center gap-2">
-                  <UserButton />
-                  <div className="hidden sm:block text-xs">
-                    <p className="text-gray-400">Welcome Back</p>
-                    <p className="font-bold">{user.fullName}</p>
-                  </div>
+            {user ? (
+              <div className="flex items-center gap-2">
+                <UserButton />
+                <div className="hidden sm:block text-xs">
+                  <p className="text-gray-400">Welcome Back</p>
+                  <p className="font-bold">{user.fullName}</p>
                 </div>
-              ) : (
-                <SignInButton mode="modal" />
-              )}
-            </ClerkLoaded>
-          </div>
+              </div>
+            ) : (
+              <SignInButton mode="modal" />
+            )}
+          </ClerkLoaded>
+
+          {/* Cart
+          <Link href="/cart" className="relative flex items-center text-black">
+            <TrolleyIcon className="w-6 h-6" />
+            {itemCount > 0 && (
+              <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
+                {itemCount}
+              </span>
+            )}
+            <span className="ml-2">My Basket </span>
+          </Link> */}
         </div>
       </div>
     </header>
