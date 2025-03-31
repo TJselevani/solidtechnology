@@ -1,12 +1,10 @@
+// app/products/[slug]/page.tsx
 import { AccessorySpecs } from "@/components/accessories/accessoriesSpecs";
-import { ProductCarousel } from "@/components/product/ProductCarousel";
 import DetailsProse from "@/components/product/ProductDetails";
 import Gallery from "@/components/product/ProductGallery";
-import { ProductSpecs } from "@/components/product/ProductSpecs";
 import { searchItemBySlug } from "@/sanity/lib/queries/search/searchItemBySlug";
 import { searchRelatedProducts } from "@/sanity/lib/queries/search/searchRelatedProduct";
 import { notFound } from "next/navigation";
-import { Suspense } from "react";
 
 export const dynamic = "force-static";
 export const revalidate = 60; // revalidate at most every 60 sec
@@ -42,23 +40,12 @@ const ProductPage = async ({ params }: { params: Promise<param> }) => {
           <Gallery product={product} />
         </div>
         <div>
-          {product._type == "product" ? (
-            <ProductSpecs product={product} />
-          ) : (
-            <AccessorySpecs product={product} />
-          )}
+          <AccessorySpecs product={product} />
         </div>
       </div>
 
       <div>
         <DetailsProse details={product.details} />
-      </div>
-
-      <div className="my-8">
-        <h2 className="bold py-4">Related products</h2>
-        <Suspense>
-          <ProductCarousel products={relatedProducts} />
-        </Suspense>
       </div>
     </div>
   );

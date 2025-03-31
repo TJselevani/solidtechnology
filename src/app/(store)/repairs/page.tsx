@@ -2,6 +2,7 @@ import BlackFridayBanner from "@/components/banners/BlackFridayBanner";
 import getAllAdvertisements from "@/sanity/lib/queries/banners/getProductAdverts";
 import AdvertisementView from "@/components/banners/AdvertisementView";
 import NavigationBar from "@/components/common/NavigationBar";
+import RepairServices from "@/components/repairs/repairService";
 
 export const dynamic = "force-static";
 
@@ -19,7 +20,9 @@ export default async function Home() {
       <AdvertisementView advertisements={advertisements} />
 
       {/* Render all repair services */}
-      <div className="flex flex-col items-center justify-top min-h-screen p-4"></div>
+      <div className="flex flex-col items-center justify-top min-h-screen p-4">
+        <RepairServices />
+      </div>
     </div>
   );
 }
