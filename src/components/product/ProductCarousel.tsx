@@ -1,10 +1,12 @@
 import Link from "next/link";
 import { GridTileImage } from "../grid/tile";
-import { Product } from "../../../sanity.types";
+import { Accessory, Product } from "../../../sanity.types";
 import { imageUrl } from "@/lib/imageUrl";
+import { searchRelatedProducts } from "@/sanity/lib/queries/search/searchRelatedProduct";
 
+type Items = Awaited<ReturnType<typeof searchRelatedProducts>>[0];
 interface CarouselViewProps {
-  products: Product[];
+  products: Product[] | Accessory[] | Items[];
 }
 
 export async function ProductCarousel({ products }: CarouselViewProps) {

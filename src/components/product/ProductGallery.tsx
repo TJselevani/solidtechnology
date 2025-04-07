@@ -4,10 +4,10 @@ import { imageUrl } from "@/lib/imageUrl";
 import Image from "next/image";
 import { useState } from "react";
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
-import { Product } from "../../../sanity.types";
+import { Accessory, Product } from "../../../sanity.types";
 
 interface GalleryParam {
-  product: Product;
+  product: Product | Accessory;
 }
 
 const Gallery = ({ product }: GalleryParam) => {
@@ -15,6 +15,7 @@ const Gallery = ({ product }: GalleryParam) => {
   const allImages = [product.image, ...(product.galleryImages || [])].filter(
     Boolean
   );
+
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isOutOfStock] = useState(product.stock != null && product.stock <= 0);
 

@@ -10,18 +10,18 @@ interface Block {
   children?: ChildBlock[];
 }
 
-interface DetailsProseProps {
+interface featuresProseProps {
   details?: Product["details"]; // Array of detail blocks from Sanity
   fallbackText?: string;
   className?: string;
   containerClassName?: string;
 }
 
-const DescriptionProse: React.FC<DetailsProseProps> = ({
+const FeaturesProse: React.FC<featuresProseProps> = ({
   details,
   fallbackText = "No Description Available",
   className = "text-xl text-gray-900",
-  containerClassName = "bg-gray-50 rounded p-4",
+  containerClassName = "bg-gray-50 rounded my-4",
 }) => {
   // If no details or empty array, return fallback
   if (!details || details.length === 0) {
@@ -55,7 +55,7 @@ const DescriptionProse: React.FC<DetailsProseProps> = ({
   );
 };
 
-export default DescriptionProse;
+export default FeaturesProse;
 
 // **************************************************************************************************************
 

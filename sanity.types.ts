@@ -99,7 +99,7 @@ export type Accessory = {
     crop?: SanityImageCrop;
     _type: "image";
   };
-  description?: Array<{
+  features?: Array<{
     children?: Array<{
       marks?: Array<string>;
       text?: string;
@@ -132,6 +132,36 @@ export type Accessory = {
   specifications?: Array<{
     key?: string;
     value?: string;
+    _key: string;
+  }>;
+  details?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote";
+    listItem?: "bullet";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
     _key: string;
   }>;
   compatibility?: Array<string>;
@@ -245,6 +275,27 @@ export type ProductPart = {
   }>;
 };
 
+export type FormFactor = {
+  _id: string;
+  _type: "formFactor";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  description?: string;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+};
+
 export type Sale = {
   _id: string;
   _type: "sale";
@@ -304,11 +355,11 @@ export type Product = {
   _rev: string;
   name?: string;
   slug?: Slug;
-  type?: {
+  category?: {
     _ref: string;
     _type: "reference";
     _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "formFactor";
+    [internalGroqTypeReferenceTo]?: "category";
   };
   manufacturer?: {
     _ref: string;
@@ -327,7 +378,7 @@ export type Product = {
     crop?: SanityImageCrop;
     _type: "image";
   };
-  description?: Array<{
+  features?: Array<{
     children?: Array<{
       marks?: Array<string>;
       text?: string;
@@ -355,6 +406,11 @@ export type Product = {
     crop?: SanityImageCrop;
     alt?: string;
     _type: "image";
+    _key: string;
+  }>;
+  specifications?: Array<{
+    key?: string;
+    value?: string;
     _key: string;
   }>;
   details?: Array<{
@@ -389,8 +445,15 @@ export type Product = {
   }>;
   ramCapacity?: "4" | "8" | "12" | "16" | "32";
   storage?: "128" | "256" | "512" | "1024" | "2048";
-  cpuGeneration?: "3" | "4" | "5" | "6" | "7" | "8" | "10" | "11" | "12" | "13";
+  cpuGeneration?: "3" | "4" | "5" | "6" | "7" | "8" | "10" | "11" | "12" | "13" | "14" | "15";
   cpuType?: "Pentium" | "celeron" | "core i3" | "core i5" | "core i7" | "core i9";
+  cpuVariants?: Array<{
+    cpuType?: "Pentium" | "celeron" | "core i3" | "core i5" | "core i7" | "core i9";
+    cpuGeneration?: "3" | "4" | "5" | "6" | "7" | "8" | "10" | "11" | "12" | "13" | "14" | "15";
+    price?: number;
+    stock?: number;
+    _key: string;
+  }>;
   screenSize?: string;
   weight?: string;
   batteryLife?: string;
@@ -428,27 +491,6 @@ export type Manufacturer = {
   name?: string;
   country?: string;
   logo?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  };
-};
-
-export type FormFactor = {
-  _id: string;
-  _type: "formFactor";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title?: string;
-  description?: string;
-  image?: {
     asset?: {
       _ref: string;
       _type: "reference";
@@ -566,7 +608,7 @@ export type SanityImageMetadata = {
   isOpaque?: boolean;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Accessory | Brand | Feature | Advertisement | ProductPart | Sale | Order | Product | Manufacturer | FormFactor | Category | Slug | BlockContent | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Accessory | Brand | Feature | Advertisement | ProductPart | FormFactor | Sale | Order | Product | Manufacturer | Category | Slug | BlockContent | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries/banners/getActiveSaleByCouponCode.ts
 // Variable: ACTIVE_SALE_BY_COUPON_QUERY
@@ -650,11 +692,11 @@ export type ALL_ORDERS_QUERYResult = Array<{
       _rev: string;
       name?: string;
       slug?: Slug;
-      type?: {
+      category?: {
         _ref: string;
         _type: "reference";
         _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "formFactor";
+        [internalGroqTypeReferenceTo]?: "category";
       };
       manufacturer?: {
         _ref: string;
@@ -673,7 +715,7 @@ export type ALL_ORDERS_QUERYResult = Array<{
         crop?: SanityImageCrop;
         _type: "image";
       };
-      description?: Array<{
+      features?: Array<{
         children?: Array<{
           marks?: Array<string>;
           text?: string;
@@ -701,6 +743,11 @@ export type ALL_ORDERS_QUERYResult = Array<{
         crop?: SanityImageCrop;
         alt?: string;
         _type: "image";
+        _key: string;
+      }>;
+      specifications?: Array<{
+        key?: string;
+        value?: string;
         _key: string;
       }>;
       details?: Array<{
@@ -735,8 +782,15 @@ export type ALL_ORDERS_QUERYResult = Array<{
       }>;
       ramCapacity?: "12" | "16" | "32" | "4" | "8";
       storage?: "1024" | "128" | "2048" | "256" | "512";
-      cpuGeneration?: "10" | "11" | "12" | "13" | "3" | "4" | "5" | "6" | "7" | "8";
+      cpuGeneration?: "10" | "11" | "12" | "13" | "14" | "15" | "3" | "4" | "5" | "6" | "7" | "8";
       cpuType?: "celeron" | "core i3" | "core i5" | "core i7" | "core i9" | "Pentium";
+      cpuVariants?: Array<{
+        cpuType?: "celeron" | "core i3" | "core i5" | "core i7" | "core i9" | "Pentium";
+        cpuGeneration?: "10" | "11" | "12" | "13" | "14" | "15" | "3" | "4" | "5" | "6" | "7" | "8";
+        price?: number;
+        stock?: number;
+        _key: string;
+      }>;
       screenSize?: string;
       weight?: string;
       batteryLife?: string;
@@ -808,7 +862,7 @@ export type ALL_ACCESSORIES_QUERYResult = Array<{
     crop?: SanityImageCrop;
     _type: "image";
   };
-  description?: Array<{
+  features?: Array<{
     children?: Array<{
       marks?: Array<string>;
       text?: string;
@@ -841,6 +895,36 @@ export type ALL_ACCESSORIES_QUERYResult = Array<{
   specifications?: Array<{
     key?: string;
     value?: string;
+    _key: string;
+  }>;
+  details?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
+    listItem?: "bullet";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
     _key: string;
   }>;
   compatibility?: Array<string>;
@@ -925,11 +1009,11 @@ export type ALL_PRODUCTS_QUERYResult = Array<{
   _rev: string;
   name?: string;
   slug?: Slug;
-  type?: {
+  category?: {
     _ref: string;
     _type: "reference";
     _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "formFactor";
+    [internalGroqTypeReferenceTo]?: "category";
   };
   manufacturer?: {
     _ref: string;
@@ -948,7 +1032,7 @@ export type ALL_PRODUCTS_QUERYResult = Array<{
     crop?: SanityImageCrop;
     _type: "image";
   };
-  description?: Array<{
+  features?: Array<{
     children?: Array<{
       marks?: Array<string>;
       text?: string;
@@ -976,6 +1060,11 @@ export type ALL_PRODUCTS_QUERYResult = Array<{
     crop?: SanityImageCrop;
     alt?: string;
     _type: "image";
+    _key: string;
+  }>;
+  specifications?: Array<{
+    key?: string;
+    value?: string;
     _key: string;
   }>;
   details?: Array<{
@@ -1010,8 +1099,15 @@ export type ALL_PRODUCTS_QUERYResult = Array<{
   }>;
   ramCapacity?: "12" | "16" | "32" | "4" | "8";
   storage?: "1024" | "128" | "2048" | "256" | "512";
-  cpuGeneration?: "10" | "11" | "12" | "13" | "3" | "4" | "5" | "6" | "7" | "8";
+  cpuGeneration?: "10" | "11" | "12" | "13" | "14" | "15" | "3" | "4" | "5" | "6" | "7" | "8";
   cpuType?: "celeron" | "core i3" | "core i5" | "core i7" | "core i9" | "Pentium";
+  cpuVariants?: Array<{
+    cpuType?: "celeron" | "core i3" | "core i5" | "core i7" | "core i9" | "Pentium";
+    cpuGeneration?: "10" | "11" | "12" | "13" | "14" | "15" | "3" | "4" | "5" | "6" | "7" | "8";
+    price?: number;
+    stock?: number;
+    _key: string;
+  }>;
   screenSize?: string;
   weight?: string;
   batteryLife?: string;
@@ -1051,11 +1147,11 @@ export type FEATURED_PRODUCTS_QUERYResult = Array<{
   _rev: string;
   name?: string;
   slug?: Slug;
-  type?: {
+  category?: {
     _ref: string;
     _type: "reference";
     _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "formFactor";
+    [internalGroqTypeReferenceTo]?: "category";
   };
   manufacturer?: {
     _ref: string;
@@ -1074,7 +1170,7 @@ export type FEATURED_PRODUCTS_QUERYResult = Array<{
     crop?: SanityImageCrop;
     _type: "image";
   };
-  description?: Array<{
+  features?: Array<{
     children?: Array<{
       marks?: Array<string>;
       text?: string;
@@ -1102,6 +1198,11 @@ export type FEATURED_PRODUCTS_QUERYResult = Array<{
     crop?: SanityImageCrop;
     alt?: string;
     _type: "image";
+    _key: string;
+  }>;
+  specifications?: Array<{
+    key?: string;
+    value?: string;
     _key: string;
   }>;
   details?: Array<{
@@ -1136,8 +1237,15 @@ export type FEATURED_PRODUCTS_QUERYResult = Array<{
   }>;
   ramCapacity?: "12" | "16" | "32" | "4" | "8";
   storage?: "1024" | "128" | "2048" | "256" | "512";
-  cpuGeneration?: "10" | "11" | "12" | "13" | "3" | "4" | "5" | "6" | "7" | "8";
+  cpuGeneration?: "10" | "11" | "12" | "13" | "14" | "15" | "3" | "4" | "5" | "6" | "7" | "8";
   cpuType?: "celeron" | "core i3" | "core i5" | "core i7" | "core i9" | "Pentium";
+  cpuVariants?: Array<{
+    cpuType?: "celeron" | "core i3" | "core i5" | "core i7" | "core i9" | "Pentium";
+    cpuGeneration?: "10" | "11" | "12" | "13" | "14" | "15" | "3" | "4" | "5" | "6" | "7" | "8";
+    price?: number;
+    stock?: number;
+    _key: string;
+  }>;
   screenSize?: string;
   weight?: string;
   batteryLife?: string;
@@ -1166,28 +1274,28 @@ export type FEATURED_PRODUCTS_QUERYResult = Array<{
   }>;
 }>;
 
-// Source: ./src/sanity/lib/queries/search/searchProductsByCategory.ts
-// Variable: PRODUCT_SEARCH_QUERY_BY_CATEGORY
-// Query: *[_type == "product" && references(*[_type == "category" && slug.current == $categorySlug]._id)] | order(name asc)
-export type PRODUCT_SEARCH_QUERY_BY_CATEGORYResult = Array<{
+// Source: ./src/sanity/lib/queries/search/searchItemBySlug.ts
+// Variable: ITEM_SEARCH_QUERY_BY_SLUG
+// Query: *[_type in ["product", "accessory"] && slug.current == $slug]     | order(name asc) [0]
+export type ITEM_SEARCH_QUERY_BY_SLUGResult = {
   _id: string;
-  _type: "product";
+  _type: "accessory";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
   name?: string;
   slug?: Slug;
-  type?: {
+  category?: {
     _ref: string;
     _type: "reference";
     _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "formFactor";
+    [internalGroqTypeReferenceTo]?: "category";
   };
-  manufacturer?: {
+  brand?: {
     _ref: string;
     _type: "reference";
     _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "manufacturer";
+    [internalGroqTypeReferenceTo]?: "brand";
   };
   image?: {
     asset?: {
@@ -1200,7 +1308,7 @@ export type PRODUCT_SEARCH_QUERY_BY_CATEGORYResult = Array<{
     crop?: SanityImageCrop;
     _type: "image";
   };
-  description?: Array<{
+  features?: Array<{
     children?: Array<{
       marks?: Array<string>;
       text?: string;
@@ -1228,6 +1336,124 @@ export type PRODUCT_SEARCH_QUERY_BY_CATEGORYResult = Array<{
     crop?: SanityImageCrop;
     alt?: string;
     _type: "image";
+    _key: string;
+  }>;
+  specifications?: Array<{
+    key?: string;
+    value?: string;
+    _key: string;
+  }>;
+  details?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
+    listItem?: "bullet";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    _key: string;
+  }>;
+  compatibility?: Array<string>;
+  powerConsumption?: string;
+  price?: number;
+  stock?: number;
+  galleryImages?: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    caption?: string;
+    _type: "image";
+    _key: string;
+  }>;
+} | {
+  _id: string;
+  _type: "product";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  category?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "category";
+  };
+  manufacturer?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "manufacturer";
+  };
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  features?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
+    listItem?: "bullet";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    _key: string;
+  }>;
+  specifications?: Array<{
+    key?: string;
+    value?: string;
     _key: string;
   }>;
   details?: Array<{
@@ -1262,8 +1488,153 @@ export type PRODUCT_SEARCH_QUERY_BY_CATEGORYResult = Array<{
   }>;
   ramCapacity?: "12" | "16" | "32" | "4" | "8";
   storage?: "1024" | "128" | "2048" | "256" | "512";
-  cpuGeneration?: "10" | "11" | "12" | "13" | "3" | "4" | "5" | "6" | "7" | "8";
+  cpuGeneration?: "10" | "11" | "12" | "13" | "14" | "15" | "3" | "4" | "5" | "6" | "7" | "8";
   cpuType?: "celeron" | "core i3" | "core i5" | "core i7" | "core i9" | "Pentium";
+  cpuVariants?: Array<{
+    cpuType?: "celeron" | "core i3" | "core i5" | "core i7" | "core i9" | "Pentium";
+    cpuGeneration?: "10" | "11" | "12" | "13" | "14" | "15" | "3" | "4" | "5" | "6" | "7" | "8";
+    price?: number;
+    stock?: number;
+    _key: string;
+  }>;
+  screenSize?: string;
+  weight?: string;
+  batteryLife?: string;
+  operatingSystem?: string;
+  price?: number;
+  categories?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "category";
+  }>;
+  stock?: number;
+  galleryImages?: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    caption?: string;
+    _type: "image";
+    _key: string;
+  }>;
+} | null;
+
+// Source: ./src/sanity/lib/queries/search/searchProductsByCategory.ts
+// Variable: PRODUCT_SEARCH_QUERY_BY_CATEGORY
+// Query: *[_type == "product" && references(*[_type == "category" && slug.current == $categorySlug]._id)] | order(name asc)
+export type PRODUCT_SEARCH_QUERY_BY_CATEGORYResult = Array<{
+  _id: string;
+  _type: "product";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  category?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "category";
+  };
+  manufacturer?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "manufacturer";
+  };
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  features?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
+    listItem?: "bullet";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    _key: string;
+  }>;
+  specifications?: Array<{
+    key?: string;
+    value?: string;
+    _key: string;
+  }>;
+  details?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
+    listItem?: "bullet";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    _key: string;
+  }>;
+  ramCapacity?: "12" | "16" | "32" | "4" | "8";
+  storage?: "1024" | "128" | "2048" | "256" | "512";
+  cpuGeneration?: "10" | "11" | "12" | "13" | "14" | "15" | "3" | "4" | "5" | "6" | "7" | "8";
+  cpuType?: "celeron" | "core i3" | "core i5" | "core i7" | "core i9" | "Pentium";
+  cpuVariants?: Array<{
+    cpuType?: "celeron" | "core i3" | "core i5" | "core i7" | "core i9" | "Pentium";
+    cpuGeneration?: "10" | "11" | "12" | "13" | "14" | "15" | "3" | "4" | "5" | "6" | "7" | "8";
+    price?: number;
+    stock?: number;
+    _key: string;
+  }>;
   screenSize?: string;
   weight?: string;
   batteryLife?: string;
@@ -1303,11 +1674,11 @@ export type PRODUCT_SEARCH_QUERY_BY_NAMEResult = Array<{
   _rev: string;
   name?: string;
   slug?: Slug;
-  type?: {
+  category?: {
     _ref: string;
     _type: "reference";
     _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "formFactor";
+    [internalGroqTypeReferenceTo]?: "category";
   };
   manufacturer?: {
     _ref: string;
@@ -1326,7 +1697,7 @@ export type PRODUCT_SEARCH_QUERY_BY_NAMEResult = Array<{
     crop?: SanityImageCrop;
     _type: "image";
   };
-  description?: Array<{
+  features?: Array<{
     children?: Array<{
       marks?: Array<string>;
       text?: string;
@@ -1354,6 +1725,11 @@ export type PRODUCT_SEARCH_QUERY_BY_NAMEResult = Array<{
     crop?: SanityImageCrop;
     alt?: string;
     _type: "image";
+    _key: string;
+  }>;
+  specifications?: Array<{
+    key?: string;
+    value?: string;
     _key: string;
   }>;
   details?: Array<{
@@ -1388,8 +1764,15 @@ export type PRODUCT_SEARCH_QUERY_BY_NAMEResult = Array<{
   }>;
   ramCapacity?: "12" | "16" | "32" | "4" | "8";
   storage?: "1024" | "128" | "2048" | "256" | "512";
-  cpuGeneration?: "10" | "11" | "12" | "13" | "3" | "4" | "5" | "6" | "7" | "8";
+  cpuGeneration?: "10" | "11" | "12" | "13" | "14" | "15" | "3" | "4" | "5" | "6" | "7" | "8";
   cpuType?: "celeron" | "core i3" | "core i5" | "core i7" | "core i9" | "Pentium";
+  cpuVariants?: Array<{
+    cpuType?: "celeron" | "core i3" | "core i5" | "core i7" | "core i9" | "Pentium";
+    cpuGeneration?: "10" | "11" | "12" | "13" | "14" | "15" | "3" | "4" | "5" | "6" | "7" | "8";
+    price?: number;
+    stock?: number;
+    _key: string;
+  }>;
   screenSize?: string;
   weight?: string;
   batteryLife?: string;
@@ -1429,11 +1812,11 @@ export type PRODUCT_SEARCH_QUERY_BY_SLUGResult = {
   _rev: string;
   name?: string;
   slug?: Slug;
-  type?: {
+  category?: {
     _ref: string;
     _type: "reference";
     _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "formFactor";
+    [internalGroqTypeReferenceTo]?: "category";
   };
   manufacturer?: {
     _ref: string;
@@ -1452,7 +1835,7 @@ export type PRODUCT_SEARCH_QUERY_BY_SLUGResult = {
     crop?: SanityImageCrop;
     _type: "image";
   };
-  description?: Array<{
+  features?: Array<{
     children?: Array<{
       marks?: Array<string>;
       text?: string;
@@ -1480,6 +1863,11 @@ export type PRODUCT_SEARCH_QUERY_BY_SLUGResult = {
     crop?: SanityImageCrop;
     alt?: string;
     _type: "image";
+    _key: string;
+  }>;
+  specifications?: Array<{
+    key?: string;
+    value?: string;
     _key: string;
   }>;
   details?: Array<{
@@ -1514,8 +1902,15 @@ export type PRODUCT_SEARCH_QUERY_BY_SLUGResult = {
   }>;
   ramCapacity?: "12" | "16" | "32" | "4" | "8";
   storage?: "1024" | "128" | "2048" | "256" | "512";
-  cpuGeneration?: "10" | "11" | "12" | "13" | "3" | "4" | "5" | "6" | "7" | "8";
+  cpuGeneration?: "10" | "11" | "12" | "13" | "14" | "15" | "3" | "4" | "5" | "6" | "7" | "8";
   cpuType?: "celeron" | "core i3" | "core i5" | "core i7" | "core i9" | "Pentium";
+  cpuVariants?: Array<{
+    cpuType?: "celeron" | "core i3" | "core i5" | "core i7" | "core i9" | "Pentium";
+    cpuGeneration?: "10" | "11" | "12" | "13" | "14" | "15" | "3" | "4" | "5" | "6" | "7" | "8";
+    price?: number;
+    stock?: number;
+    _key: string;
+  }>;
   screenSize?: string;
   weight?: string;
   batteryLife?: string;
@@ -1545,27 +1940,27 @@ export type PRODUCT_SEARCH_QUERY_BY_SLUGResult = {
 } | null;
 
 // Source: ./src/sanity/lib/queries/search/searchRelatedProduct.ts
-// Variable: RELATED_PRODUCTS_QUERY
-// Query: *[_type == "product" && _id != $productId && stock > 0] |     score(      // Manufacturer match (highest priority)      (manufacturer._ref == ^.manufacturer._ref) * 3 +      // Form factor match      (type._ref == ^.type._ref) * 2 +      // Category matches      (count(categories[@._ref in ^.categories[]._ref]) > 0) * 1.5 +      // Technical specs matches      (cpuType == ^.cpuType) * 1.2 +      (ramCapacity == ^.ramCapacity) * 1.1 +      (storage == ^.storage) * 1.1 +      // Price proximity (20% range)      (price >= ^.price * 0.8 && price <= ^.price * 1.2) * 0.8    ) |     order(_score desc) [0..5]
-export type RELATED_PRODUCTS_QUERYResult = Array<{
+// Variable: RELATED_ITEMS_BY_CATEGORY_QUERY
+// Query: *[_type in ["product", "accessory"] && references(*[_type == "category"]._id) && _id != $productId && stock > 0]    | order(_createdAt desc) [0..10] // Get the first 10 products from the same category
+export type RELATED_ITEMS_BY_CATEGORY_QUERYResult = Array<{
   _id: string;
-  _type: "product";
+  _type: "accessory";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
   name?: string;
   slug?: Slug;
-  type?: {
+  category?: {
     _ref: string;
     _type: "reference";
     _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "formFactor";
+    [internalGroqTypeReferenceTo]?: "category";
   };
-  manufacturer?: {
+  brand?: {
     _ref: string;
     _type: "reference";
     _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "manufacturer";
+    [internalGroqTypeReferenceTo]?: "brand";
   };
   image?: {
     asset?: {
@@ -1578,7 +1973,7 @@ export type RELATED_PRODUCTS_QUERYResult = Array<{
     crop?: SanityImageCrop;
     _type: "image";
   };
-  description?: Array<{
+  features?: Array<{
     children?: Array<{
       marks?: Array<string>;
       text?: string;
@@ -1606,6 +2001,124 @@ export type RELATED_PRODUCTS_QUERYResult = Array<{
     crop?: SanityImageCrop;
     alt?: string;
     _type: "image";
+    _key: string;
+  }>;
+  specifications?: Array<{
+    key?: string;
+    value?: string;
+    _key: string;
+  }>;
+  details?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
+    listItem?: "bullet";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    _key: string;
+  }>;
+  compatibility?: Array<string>;
+  powerConsumption?: string;
+  price?: number;
+  stock?: number;
+  galleryImages?: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    caption?: string;
+    _type: "image";
+    _key: string;
+  }>;
+} | {
+  _id: string;
+  _type: "product";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  category?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "category";
+  };
+  manufacturer?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "manufacturer";
+  };
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  features?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
+    listItem?: "bullet";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    _key: string;
+  }>;
+  specifications?: Array<{
+    key?: string;
+    value?: string;
     _key: string;
   }>;
   details?: Array<{
@@ -1640,8 +2153,15 @@ export type RELATED_PRODUCTS_QUERYResult = Array<{
   }>;
   ramCapacity?: "12" | "16" | "32" | "4" | "8";
   storage?: "1024" | "128" | "2048" | "256" | "512";
-  cpuGeneration?: "10" | "11" | "12" | "13" | "3" | "4" | "5" | "6" | "7" | "8";
+  cpuGeneration?: "10" | "11" | "12" | "13" | "14" | "15" | "3" | "4" | "5" | "6" | "7" | "8";
   cpuType?: "celeron" | "core i3" | "core i5" | "core i7" | "core i9" | "Pentium";
+  cpuVariants?: Array<{
+    cpuType?: "celeron" | "core i3" | "core i5" | "core i7" | "core i9" | "Pentium";
+    cpuGeneration?: "10" | "11" | "12" | "13" | "14" | "15" | "3" | "4" | "5" | "6" | "7" | "8";
+    price?: number;
+    stock?: number;
+    _key: string;
+  }>;
   screenSize?: string;
   weight?: string;
   batteryLife?: string;
@@ -1654,6 +2174,510 @@ export type RELATED_PRODUCTS_QUERYResult = Array<{
     _key: string;
     [internalGroqTypeReferenceTo]?: "category";
   }>;
+  stock?: number;
+  galleryImages?: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    caption?: string;
+    _type: "image";
+    _key: string;
+  }>;
+}>;
+// Variable: RELATED_PRODUCTS_BY_MANUFACTURER_QUERY
+// Query: *[_type == "product" && references(*[_type == "manufacturer"]._id) && _id != $productId && stock > 0]    | order(_createdAt desc) [0..10] // Get the first 10 products from the same manufacturer
+export type RELATED_PRODUCTS_BY_MANUFACTURER_QUERYResult = Array<{
+  _id: string;
+  _type: "product";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  category?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "category";
+  };
+  manufacturer?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "manufacturer";
+  };
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  features?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
+    listItem?: "bullet";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    _key: string;
+  }>;
+  specifications?: Array<{
+    key?: string;
+    value?: string;
+    _key: string;
+  }>;
+  details?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
+    listItem?: "bullet";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    _key: string;
+  }>;
+  ramCapacity?: "12" | "16" | "32" | "4" | "8";
+  storage?: "1024" | "128" | "2048" | "256" | "512";
+  cpuGeneration?: "10" | "11" | "12" | "13" | "14" | "15" | "3" | "4" | "5" | "6" | "7" | "8";
+  cpuType?: "celeron" | "core i3" | "core i5" | "core i7" | "core i9" | "Pentium";
+  cpuVariants?: Array<{
+    cpuType?: "celeron" | "core i3" | "core i5" | "core i7" | "core i9" | "Pentium";
+    cpuGeneration?: "10" | "11" | "12" | "13" | "14" | "15" | "3" | "4" | "5" | "6" | "7" | "8";
+    price?: number;
+    stock?: number;
+    _key: string;
+  }>;
+  screenSize?: string;
+  weight?: string;
+  batteryLife?: string;
+  operatingSystem?: string;
+  price?: number;
+  categories?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "category";
+  }>;
+  stock?: number;
+  galleryImages?: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    caption?: string;
+    _type: "image";
+    _key: string;
+  }>;
+}>;
+// Variable: RELATED_ACCESSORIES_BY_BRAND_QUERY
+// Query: *[_type == "accessory" && references(*[_type == "brand"]._id) && _id != $productId && stock > 0]    | order(_createdAt desc) [0..10] // Get the first 10 products from the same brand
+export type RELATED_ACCESSORIES_BY_BRAND_QUERYResult = Array<{
+  _id: string;
+  _type: "accessory";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  category?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "category";
+  };
+  brand?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "brand";
+  };
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  features?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
+    listItem?: "bullet";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    _key: string;
+  }>;
+  specifications?: Array<{
+    key?: string;
+    value?: string;
+    _key: string;
+  }>;
+  details?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
+    listItem?: "bullet";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    _key: string;
+  }>;
+  compatibility?: Array<string>;
+  powerConsumption?: string;
+  price?: number;
+  stock?: number;
+  galleryImages?: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    caption?: string;
+    _type: "image";
+    _key: string;
+  }>;
+}>;
+// Variable: RELATED_PRODUCTS_BY_NAME_QUERY
+// Query: *[_type == "product" && _id != $productId && stock > 0 && name match $productName + "*"]    | order(_createdAt desc) [0..10] // Get 10 products with similar names
+export type RELATED_PRODUCTS_BY_NAME_QUERYResult = Array<{
+  _id: string;
+  _type: "product";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  category?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "category";
+  };
+  manufacturer?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "manufacturer";
+  };
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  features?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
+    listItem?: "bullet";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    _key: string;
+  }>;
+  specifications?: Array<{
+    key?: string;
+    value?: string;
+    _key: string;
+  }>;
+  details?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
+    listItem?: "bullet";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    _key: string;
+  }>;
+  ramCapacity?: "12" | "16" | "32" | "4" | "8";
+  storage?: "1024" | "128" | "2048" | "256" | "512";
+  cpuGeneration?: "10" | "11" | "12" | "13" | "14" | "15" | "3" | "4" | "5" | "6" | "7" | "8";
+  cpuType?: "celeron" | "core i3" | "core i5" | "core i7" | "core i9" | "Pentium";
+  cpuVariants?: Array<{
+    cpuType?: "celeron" | "core i3" | "core i5" | "core i7" | "core i9" | "Pentium";
+    cpuGeneration?: "10" | "11" | "12" | "13" | "14" | "15" | "3" | "4" | "5" | "6" | "7" | "8";
+    price?: number;
+    stock?: number;
+    _key: string;
+  }>;
+  screenSize?: string;
+  weight?: string;
+  batteryLife?: string;
+  operatingSystem?: string;
+  price?: number;
+  categories?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "category";
+  }>;
+  stock?: number;
+  galleryImages?: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    caption?: string;
+    _type: "image";
+    _key: string;
+  }>;
+}>;
+// Variable: RELATED_ACCESSORIES_BY_NAME_QUERY
+// Query: *[_type == "accessory" && _id != $productId && stock > 0 && name match $productName + "*"]    | order(_createdAt desc) [0..10] // Get 10 products with similar names
+export type RELATED_ACCESSORIES_BY_NAME_QUERYResult = Array<{
+  _id: string;
+  _type: "accessory";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  category?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "category";
+  };
+  brand?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "brand";
+  };
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  features?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
+    listItem?: "bullet";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    _key: string;
+  }>;
+  specifications?: Array<{
+    key?: string;
+    value?: string;
+    _key: string;
+  }>;
+  details?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
+    listItem?: "bullet";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  } | {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    _key: string;
+  }>;
+  compatibility?: Array<string>;
+  powerConsumption?: string;
+  price?: number;
   stock?: number;
   galleryImages?: Array<{
     asset?: {
@@ -1682,9 +2706,14 @@ declare module "@sanity/client" {
     "\n        *[_type == \"category\"] | order(name asc)\n    ": ALL_CATEGORIES_QUERYResult;
     "\n    *[_type == \"manufacturer\"] | order(name asc)\n  ": ALL_MANUFACTURERS_QUERYResult;
     "\n        *[_type == \"product\"] | order(name asc)\n    ": ALL_PRODUCTS_QUERYResult | FEATURED_PRODUCTS_QUERYResult;
+    "\n    *[_type in [\"product\", \"accessory\"] && slug.current == $slug] \n    | order(name asc) [0]    \n  ": ITEM_SEARCH_QUERY_BY_SLUGResult;
     "\n        *[_type == \"product\" && references(*[_type == \"category\" && slug.current == $categorySlug]._id)] | order(name asc) \n    ": PRODUCT_SEARCH_QUERY_BY_CATEGORYResult;
     "\n        *[_type == \"product\" && name match $searchParam ] | order(name asc)    \n    ": PRODUCT_SEARCH_QUERY_BY_NAMEResult;
     "\n        *[_type == \"product\" && slug.current == $slug] | order(name asc) [0]    \n    ": PRODUCT_SEARCH_QUERY_BY_SLUGResult;
-    "\n    *[_type == \"product\" && _id != $productId && stock > 0] | \n    score(\n      // Manufacturer match (highest priority)\n      (manufacturer._ref == ^.manufacturer._ref) * 3 +\n      // Form factor match\n      (type._ref == ^.type._ref) * 2 +\n      // Category matches\n      (count(categories[@._ref in ^.categories[]._ref]) > 0) * 1.5 +\n      // Technical specs matches\n      (cpuType == ^.cpuType) * 1.2 +\n      (ramCapacity == ^.ramCapacity) * 1.1 +\n      (storage == ^.storage) * 1.1 +\n      // Price proximity (20% range)\n      (price >= ^.price * 0.8 && price <= ^.price * 1.2) * 0.8\n    ) | \n    order(_score desc) [0..5]\n  ": RELATED_PRODUCTS_QUERYResult;
+    "\n    *[_type in [\"product\", \"accessory\"] && references(*[_type == \"category\"]._id) && _id != $productId && stock > 0]\n    | order(_createdAt desc) [0..10] // Get the first 10 products from the same category\n  ": RELATED_ITEMS_BY_CATEGORY_QUERYResult;
+    "\n    *[_type == \"product\" && references(*[_type == \"manufacturer\"]._id) && _id != $productId && stock > 0]\n    | order(_createdAt desc) [0..10] // Get the first 10 products from the same manufacturer\n  ": RELATED_PRODUCTS_BY_MANUFACTURER_QUERYResult;
+    "\n    *[_type == \"accessory\" && references(*[_type == \"brand\"]._id) && _id != $productId && stock > 0]\n    | order(_createdAt desc) [0..10] // Get the first 10 products from the same brand\n  ": RELATED_ACCESSORIES_BY_BRAND_QUERYResult;
+    "\n    *[_type == \"product\" && _id != $productId && stock > 0 && name match $productName + \"*\"]\n    | order(_createdAt desc) [0..10] // Get 10 products with similar names\n  ": RELATED_PRODUCTS_BY_NAME_QUERYResult;
+    "\n    *[_type == \"accessory\" && _id != $productId && stock > 0 && name match $productName + \"*\"]\n    | order(_createdAt desc) [0..10] // Get 10 products with similar names\n  ": RELATED_ACCESSORIES_BY_NAME_QUERYResult;
   }
 }

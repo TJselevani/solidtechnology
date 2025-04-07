@@ -4,7 +4,7 @@ import {
   createStripeCheckoutSession,
   Metadata,
 } from "@/actions/createStripeCheckoutSession";
-import AddToBasketButton from "@/components/basket/addToBasket";
+import ManageBasketButton from "@/components/basket/ManageBasket";
 import Loader from "@/components/common/loader";
 import { imageUrl } from "@/lib/imageUrl";
 import useBasketStore from "@/store/store";
@@ -136,7 +136,7 @@ function BasketPage() {
                     </div>
                   </div>
                   <div className="flex items-center">
-                    <AddToBasketButton
+                    <ManageBasketButton
                       product={item.product}
                       disabled={false}
                     />

@@ -1,18 +1,18 @@
 "use client";
 import useBasketStore from "@/store/store";
-import { Product } from "../../../sanity.types";
+import { Accessory, Product } from "../../../sanity.types";
 import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { Minus, ShoppingCart } from "lucide-react"; // Using Lucide icons
 
 interface AddToCartProps {
-  product: Product;
+  product: Product | Accessory;
   disabled: boolean;
 }
 
 export default function AddToCart({ product, disabled }: AddToCartProps) {
   const { addItem, removeItem, getItemCount } = useBasketStore();
-  const [itemCount, setItemCount] = useState(getItemCount(product._id));
+  const [itemCount, setItemCount] = useState(getItemCount(product));
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -20,10 +20,10 @@ export default function AddToCart({ product, disabled }: AddToCartProps) {
   }, []);
 
   useEffect(() => {
-    const updateCount = () => setItemCount(getItemCount(product._id));
+    const updateCount = () => setItemCount(getItemCount(product));
     const unsubscribe = useBasketStore.subscribe(updateCount);
     return () => unsubscribe();
-  }, [product._id, getItemCount]);
+  }, [product, getItemCount]);
 
   if (!isClient) return null;
 
@@ -31,7 +31,7 @@ export default function AddToCart({ product, disabled }: AddToCartProps) {
     <div className="flex items-center">
       {/* Minus Button (Separate but Connected) */}
       <Button
-        onClick={() => removeItem(product._id)}
+        onClick={() => removeItem(product)}
         disabled={itemCount === 0 || disabled}
         className={`w-10 h-10 rounded-full border-r bg-gray-300 
           ${itemCount === 0 ? "cursor-not-allowed text-gray-500" : "hover:bg-gray-400"}`}

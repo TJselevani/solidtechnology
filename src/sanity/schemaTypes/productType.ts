@@ -24,11 +24,10 @@ export const productType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "type",
+      name: "category",
+      title: "Category",
       type: "reference",
-      title: "Product Type",
-      to: [{ type: "formFactor" }],
-      validation: (Rule) => Rule.required(),
+      to: [{ type: "category" }],
     }),
     defineField({
       name: "manufacturer",
@@ -46,9 +45,31 @@ export const productType = defineType({
       },
     }),
     defineField({
-      name: "description",
-      title: "Product Description",
+      name: "features",
+      title: "Product Features",
       type: "blockContent",
+    }),
+    defineField({
+      name: "specifications",
+      title: "Product Specifications",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          fields: [
+            defineField({
+              name: "key",
+              type: "string",
+              title: "Specification",
+            }),
+            defineField({
+              name: "value",
+              type: "string",
+              title: "Value",
+            }),
+          ],
+        },
+      ],
     }),
     defineField({
       name: "details",
@@ -102,6 +123,8 @@ export const productType = defineType({
           { title: "11th Gen", value: "11" },
           { title: "12th Gen", value: "12" },
           { title: "13th Gen", value: "13" },
+          { title: "14th Gen", value: "14" },
+          { title: "15th Gen", value: "15" },
         ],
       },
     }),
@@ -121,6 +144,64 @@ export const productType = defineType({
           { title: "Core i9", value: "core i9" },
         ],
       },
+    }),
+    defineField({
+      name: "cpuVariants",
+      title: "CPU Variants",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          fields: [
+            {
+              name: "cpuType",
+              type: "string",
+              title: "CPU Type",
+              options: {
+                list: [
+                  { title: "Pentium", value: "Pentium" },
+                  { title: "Celeron", value: "celeron" },
+                  { title: "Core i3", value: "core i3" },
+                  { title: "Core i5", value: "core i5" },
+                  { title: "Core i7", value: "core i7" },
+                  { title: "Core i9", value: "core i9" },
+                ],
+              },
+            },
+            {
+              name: "cpuGeneration",
+              type: "string",
+              title: "CPU Generation",
+              options: {
+                list: [
+                  { title: "3rd Gen", value: "3" },
+                  { title: "4th Gen", value: "4" },
+                  { title: "5th Gen", value: "5" },
+                  { title: "6th Gen", value: "6" },
+                  { title: "7th Gen", value: "7" },
+                  { title: "8th Gen", value: "8" },
+                  { title: "10th Gen", value: "10" },
+                  { title: "11th Gen", value: "11" },
+                  { title: "12th Gen", value: "12" },
+                  { title: "13th Gen", value: "13" },
+                  { title: "14th Gen", value: "14" },
+                  { title: "15th Gen", value: "15" },
+                ],
+              },
+            },
+            {
+              name: "price",
+              type: "number",
+              title: "Variant Price",
+            },
+            {
+              name: "stock",
+              type: "number",
+              title: "Variant Stock",
+            },
+          ],
+        },
+      ],
     }),
     defineField({
       name: "screenSize",

@@ -1,20 +1,20 @@
 "use client";
 import useBasketStore from "@/store/store";
-import { Product } from "../../../sanity.types";
+import { Accessory, Product } from "../../../sanity.types";
 import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 
-interface AddToBasketButtonProps {
-  product: Product;
+interface ManageBasketButtonProps {
+  product: Product | Accessory;
   disabled: boolean;
 }
 
-export default function AddToBasketButton({
+export default function ManageBasketButton({
   product,
   disabled,
-}: AddToBasketButtonProps) {
+}: ManageBasketButtonProps) {
   const { addItem, removeItem, getItemCount } = useBasketStore();
-  const [itemCount, setItemCount] = useState(getItemCount(product._id));
+  const [itemCount, setItemCount] = useState(getItemCount(product));
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -23,12 +23,12 @@ export default function AddToBasketButton({
 
   useEffect(() => {
     // Update item count whenever it changes in the store
-    const updateCount = () => setItemCount(getItemCount(product._id));
+    const updateCount = () => setItemCount(getItemCount(product));
     // Assuming you have a way to subscribe to store changes
     const unsubscribe = useBasketStore.subscribe(updateCount);
 
     return () => unsubscribe(); // Cleanup subscription on unmount
-  }, [product._id, getItemCount]);
+  }, [product, getItemCount]);
 
   if (!isClient) {
     return null; // Return null instead of undefined
@@ -37,7 +37,7 @@ export default function AddToBasketButton({
   return (
     <div className="flex items-center justify-center space-x-2">
       <Button
-        onClick={() => removeItem(product._id)}
+        onClick={() => removeItem(product)}
         disabled={itemCount === 0 || disabled}
         // className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-200 ${itemCount === 0 ? "bg-gray-100 cursor-not-allowed" : "bg-gray-200 hover:bg-gray-300"}`}
       >

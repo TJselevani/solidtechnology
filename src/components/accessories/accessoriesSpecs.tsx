@@ -1,28 +1,22 @@
 "use client";
 
-import { Product } from "../../../sanity.types";
+import { Accessory } from "../../../sanity.types";
 import { formatPriceFromString } from "@/utils/formatPrice";
 import { useState } from "react";
 import AddToCart from "../basket/addToCart";
 import WhatsAppChatButton from "../whatsapp/WhatsappChatButton";
-import DescriptionProse from "../product/productDescription";
+import DescriptionProse from "../product/productFeatures";
 
-export function AccessorySpecs({ product }: { product: Product }) {
+export function AccessorySpecs({ product }: { product: Accessory }) {
   const [isOutOfStock] = useState(product.stock != null && product.stock <= 0);
 
   // Simple specifications without variants
   const simpleSpecs = [
-    { label: "Screen Size", value: product.screenSize },
-    { label: "Weight", value: product.weight },
-    { label: "Battery Life", value: product.batteryLife },
-    { label: "Operating System", value: product.operatingSystem },
     { label: "Manufacturer", value: "Company" },
-    { label: "Type", value: "Device" },
-  ].filter((spec) => spec.value); // Only show specs that have values
+    { label: "Type", value: "Accessory" },
+  ].filter((spec) => spec.value);
 
-  let proseDetails = product.details;
-
-  if (!proseDetails) proseDetails = product.description;
+  const proseDetails = product.features;
 
   return (
     <div className="container mx-auto px-4 py-8 flex-col justify-between">
@@ -33,7 +27,7 @@ export function AccessorySpecs({ product }: { product: Product }) {
           ksh {formatPriceFromString(product.price!.toFixed(2))}
         </div>
 
-        {proseDetails && <DescriptionProse details={product.description} />}
+        {proseDetails && <DescriptionProse details={proseDetails} />}
 
         {/* Simple Specifications */}
         <div className="mt-8">

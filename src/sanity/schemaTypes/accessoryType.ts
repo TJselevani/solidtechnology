@@ -45,13 +45,13 @@ export const accessoryType = defineType({
       },
     }),
     defineField({
-      name: "description",
-      title: "Description",
+      name: "features",
+      title: "Product Features",
       type: "blockContent",
     }),
     defineField({
       name: "specifications",
-      title: "Specifications",
+      title: "Product Specifications",
       type: "array",
       of: [
         {
@@ -70,6 +70,11 @@ export const accessoryType = defineType({
           ],
         },
       ],
+    }),
+    defineField({
+      name: "details",
+      title: "Product Details",
+      type: "blockContent",
     }),
     defineField({
       name: "compatibility",
