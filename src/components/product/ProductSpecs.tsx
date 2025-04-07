@@ -10,6 +10,7 @@ import { CpuGen, CpuType } from "@/constants/types";
 import { ProductSpecsTable } from "./productSpecsTable";
 
 export interface CpuVariant {
+  _key: string;
   cpuType: CpuType;
   cpuGeneration: CpuGen;
   price: number;
@@ -38,7 +39,9 @@ const CPU_GEN_OPTIONS: CpuGen[] = [
 export function ProductSpecs({ product }: { product: Product }) {
   const [selectedCpuVariant, setSelectedCpuVariant] =
     useState<CpuVariant | null>(
-      product.cpuVariants?.length ? product.cpuVariants[0] : null
+      product.cpuVariants?.length
+        ? (product.cpuVariants[0] as CpuVariant)
+        : null
     );
 
   const currentCpuType = selectedCpuVariant?.cpuType || product.cpuType;
@@ -62,8 +65,10 @@ export function ProductSpecs({ product }: { product: Product }) {
 
   const handleCpuVariantSelect = (cpuType?: CpuType, cpuGen?: CpuGen) => {
     const variant = product.cpuVariants?.find(
-      (v) => v.cpuType === cpuType && v.cpuGeneration === cpuGen
+      (v): v is CpuVariant =>
+        v.cpuType === cpuType && v.cpuGeneration === cpuGen
     );
+
     if (variant) setSelectedCpuVariant(variant);
   };
 
