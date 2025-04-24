@@ -2820,59 +2820,34 @@
         },
         "optional": true
       },
-      "ramCapacity": {
+      "cpuType": {
         "type": "objectAttribute",
         "value": {
           "type": "union",
           "of": [
             {
               "type": "string",
-              "value": "4"
+              "value": "Pentium"
             },
             {
               "type": "string",
-              "value": "8"
+              "value": "celeron"
             },
             {
               "type": "string",
-              "value": "12"
+              "value": "core i3"
             },
             {
               "type": "string",
-              "value": "16"
+              "value": "core i5"
             },
             {
               "type": "string",
-              "value": "32"
-            }
-          ]
-        },
-        "optional": true
-      },
-      "storage": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "union",
-          "of": [
-            {
-              "type": "string",
-              "value": "128"
+              "value": "core i7"
             },
             {
               "type": "string",
-              "value": "256"
-            },
-            {
-              "type": "string",
-              "value": "512"
-            },
-            {
-              "type": "string",
-              "value": "1024"
-            },
-            {
-              "type": "string",
-              "value": "2048"
+              "value": "core i9"
             }
           ]
         },
@@ -2935,34 +2910,59 @@
         },
         "optional": true
       },
-      "cpuType": {
+      "ramCapacity": {
         "type": "objectAttribute",
         "value": {
           "type": "union",
           "of": [
             {
               "type": "string",
-              "value": "Pentium"
+              "value": "4"
             },
             {
               "type": "string",
-              "value": "celeron"
+              "value": "8"
             },
             {
               "type": "string",
-              "value": "core i3"
+              "value": "12"
             },
             {
               "type": "string",
-              "value": "core i5"
+              "value": "16"
             },
             {
               "type": "string",
-              "value": "core i7"
+              "value": "32"
+            }
+          ]
+        },
+        "optional": true
+      },
+      "storage": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "union",
+          "of": [
+            {
+              "type": "string",
+              "value": "128"
             },
             {
               "type": "string",
-              "value": "core i9"
+              "value": "256"
+            },
+            {
+              "type": "string",
+              "value": "512"
+            },
+            {
+              "type": "string",
+              "value": "1024"
+            },
+            {
+              "type": "string",
+              "value": "2048"
             }
           ]
         },
@@ -3060,6 +3060,64 @@
                     {
                       "type": "string",
                       "value": "15"
+                    }
+                  ]
+                },
+                "optional": true
+              },
+              "storage": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "union",
+                  "of": [
+                    {
+                      "type": "string",
+                      "value": "128"
+                    },
+                    {
+                      "type": "string",
+                      "value": "256"
+                    },
+                    {
+                      "type": "string",
+                      "value": "512"
+                    },
+                    {
+                      "type": "string",
+                      "value": "1024"
+                    },
+                    {
+                      "type": "string",
+                      "value": "2048"
+                    }
+                  ]
+                },
+                "optional": true
+              },
+              "ramCapacity": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "union",
+                  "of": [
+                    {
+                      "type": "string",
+                      "value": "4"
+                    },
+                    {
+                      "type": "string",
+                      "value": "8"
+                    },
+                    {
+                      "type": "string",
+                      "value": "12"
+                    },
+                    {
+                      "type": "string",
+                      "value": "16"
+                    },
+                    {
+                      "type": "string",
+                      "value": "32"
                     }
                   ]
                 },

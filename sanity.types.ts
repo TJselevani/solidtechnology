@@ -443,13 +443,15 @@ export type Product = {
     _type: "image";
     _key: string;
   }>;
+  cpuType?: "Pentium" | "celeron" | "core i3" | "core i5" | "core i7" | "core i9";
+  cpuGeneration?: "3" | "4" | "5" | "6" | "7" | "8" | "10" | "11" | "12" | "13" | "14" | "15";
   ramCapacity?: "4" | "8" | "12" | "16" | "32";
   storage?: "128" | "256" | "512" | "1024" | "2048";
-  cpuGeneration?: "3" | "4" | "5" | "6" | "7" | "8" | "10" | "11" | "12" | "13" | "14" | "15";
-  cpuType?: "Pentium" | "celeron" | "core i3" | "core i5" | "core i7" | "core i9";
   cpuVariants?: Array<{
     cpuType?: "Pentium" | "celeron" | "core i3" | "core i5" | "core i7" | "core i9";
     cpuGeneration?: "3" | "4" | "5" | "6" | "7" | "8" | "10" | "11" | "12" | "13" | "14" | "15";
+    storage?: "128" | "256" | "512" | "1024" | "2048";
+    ramCapacity?: "4" | "8" | "12" | "16" | "32";
     price?: number;
     stock?: number;
     _key: string;
@@ -780,13 +782,15 @@ export type ALL_ORDERS_QUERYResult = Array<{
         _type: "image";
         _key: string;
       }>;
+      cpuType?: "celeron" | "core i3" | "core i5" | "core i7" | "core i9" | "Pentium";
+      cpuGeneration?: "10" | "11" | "12" | "13" | "14" | "15" | "3" | "4" | "5" | "6" | "7" | "8";
       ramCapacity?: "12" | "16" | "32" | "4" | "8";
       storage?: "1024" | "128" | "2048" | "256" | "512";
-      cpuGeneration?: "10" | "11" | "12" | "13" | "14" | "15" | "3" | "4" | "5" | "6" | "7" | "8";
-      cpuType?: "celeron" | "core i3" | "core i5" | "core i7" | "core i9" | "Pentium";
       cpuVariants?: Array<{
         cpuType?: "celeron" | "core i3" | "core i5" | "core i7" | "core i9" | "Pentium";
         cpuGeneration?: "10" | "11" | "12" | "13" | "14" | "15" | "3" | "4" | "5" | "6" | "7" | "8";
+        storage?: "1024" | "128" | "2048" | "256" | "512";
+        ramCapacity?: "12" | "16" | "32" | "4" | "8";
         price?: number;
         stock?: number;
         _key: string;
@@ -1097,13 +1101,15 @@ export type ALL_PRODUCTS_QUERYResult = Array<{
     _type: "image";
     _key: string;
   }>;
+  cpuType?: "celeron" | "core i3" | "core i5" | "core i7" | "core i9" | "Pentium";
+  cpuGeneration?: "10" | "11" | "12" | "13" | "14" | "15" | "3" | "4" | "5" | "6" | "7" | "8";
   ramCapacity?: "12" | "16" | "32" | "4" | "8";
   storage?: "1024" | "128" | "2048" | "256" | "512";
-  cpuGeneration?: "10" | "11" | "12" | "13" | "14" | "15" | "3" | "4" | "5" | "6" | "7" | "8";
-  cpuType?: "celeron" | "core i3" | "core i5" | "core i7" | "core i9" | "Pentium";
   cpuVariants?: Array<{
     cpuType?: "celeron" | "core i3" | "core i5" | "core i7" | "core i9" | "Pentium";
     cpuGeneration?: "10" | "11" | "12" | "13" | "14" | "15" | "3" | "4" | "5" | "6" | "7" | "8";
+    storage?: "1024" | "128" | "2048" | "256" | "512";
+    ramCapacity?: "12" | "16" | "32" | "4" | "8";
     price?: number;
     stock?: number;
     _key: string;
@@ -1235,13 +1241,15 @@ export type FEATURED_PRODUCTS_QUERYResult = Array<{
     _type: "image";
     _key: string;
   }>;
+  cpuType?: "celeron" | "core i3" | "core i5" | "core i7" | "core i9" | "Pentium";
+  cpuGeneration?: "10" | "11" | "12" | "13" | "14" | "15" | "3" | "4" | "5" | "6" | "7" | "8";
   ramCapacity?: "12" | "16" | "32" | "4" | "8";
   storage?: "1024" | "128" | "2048" | "256" | "512";
-  cpuGeneration?: "10" | "11" | "12" | "13" | "14" | "15" | "3" | "4" | "5" | "6" | "7" | "8";
-  cpuType?: "celeron" | "core i3" | "core i5" | "core i7" | "core i9" | "Pentium";
   cpuVariants?: Array<{
     cpuType?: "celeron" | "core i3" | "core i5" | "core i7" | "core i9" | "Pentium";
     cpuGeneration?: "10" | "11" | "12" | "13" | "14" | "15" | "3" | "4" | "5" | "6" | "7" | "8";
+    storage?: "1024" | "128" | "2048" | "256" | "512";
+    ramCapacity?: "12" | "16" | "32" | "4" | "8";
     price?: number;
     stock?: number;
     _key: string;
@@ -1486,13 +1494,15 @@ export type ITEM_SEARCH_QUERY_BY_SLUGResult = {
     _type: "image";
     _key: string;
   }>;
+  cpuType?: "celeron" | "core i3" | "core i5" | "core i7" | "core i9" | "Pentium";
+  cpuGeneration?: "10" | "11" | "12" | "13" | "14" | "15" | "3" | "4" | "5" | "6" | "7" | "8";
   ramCapacity?: "12" | "16" | "32" | "4" | "8";
   storage?: "1024" | "128" | "2048" | "256" | "512";
-  cpuGeneration?: "10" | "11" | "12" | "13" | "14" | "15" | "3" | "4" | "5" | "6" | "7" | "8";
-  cpuType?: "celeron" | "core i3" | "core i5" | "core i7" | "core i9" | "Pentium";
   cpuVariants?: Array<{
     cpuType?: "celeron" | "core i3" | "core i5" | "core i7" | "core i9" | "Pentium";
     cpuGeneration?: "10" | "11" | "12" | "13" | "14" | "15" | "3" | "4" | "5" | "6" | "7" | "8";
+    storage?: "1024" | "128" | "2048" | "256" | "512";
+    ramCapacity?: "12" | "16" | "32" | "4" | "8";
     price?: number;
     stock?: number;
     _key: string;
@@ -1624,13 +1634,15 @@ export type PRODUCT_SEARCH_QUERY_BY_CATEGORYResult = Array<{
     _type: "image";
     _key: string;
   }>;
+  cpuType?: "celeron" | "core i3" | "core i5" | "core i7" | "core i9" | "Pentium";
+  cpuGeneration?: "10" | "11" | "12" | "13" | "14" | "15" | "3" | "4" | "5" | "6" | "7" | "8";
   ramCapacity?: "12" | "16" | "32" | "4" | "8";
   storage?: "1024" | "128" | "2048" | "256" | "512";
-  cpuGeneration?: "10" | "11" | "12" | "13" | "14" | "15" | "3" | "4" | "5" | "6" | "7" | "8";
-  cpuType?: "celeron" | "core i3" | "core i5" | "core i7" | "core i9" | "Pentium";
   cpuVariants?: Array<{
     cpuType?: "celeron" | "core i3" | "core i5" | "core i7" | "core i9" | "Pentium";
     cpuGeneration?: "10" | "11" | "12" | "13" | "14" | "15" | "3" | "4" | "5" | "6" | "7" | "8";
+    storage?: "1024" | "128" | "2048" | "256" | "512";
+    ramCapacity?: "12" | "16" | "32" | "4" | "8";
     price?: number;
     stock?: number;
     _key: string;
@@ -1762,13 +1774,15 @@ export type PRODUCT_SEARCH_QUERY_BY_NAMEResult = Array<{
     _type: "image";
     _key: string;
   }>;
+  cpuType?: "celeron" | "core i3" | "core i5" | "core i7" | "core i9" | "Pentium";
+  cpuGeneration?: "10" | "11" | "12" | "13" | "14" | "15" | "3" | "4" | "5" | "6" | "7" | "8";
   ramCapacity?: "12" | "16" | "32" | "4" | "8";
   storage?: "1024" | "128" | "2048" | "256" | "512";
-  cpuGeneration?: "10" | "11" | "12" | "13" | "14" | "15" | "3" | "4" | "5" | "6" | "7" | "8";
-  cpuType?: "celeron" | "core i3" | "core i5" | "core i7" | "core i9" | "Pentium";
   cpuVariants?: Array<{
     cpuType?: "celeron" | "core i3" | "core i5" | "core i7" | "core i9" | "Pentium";
     cpuGeneration?: "10" | "11" | "12" | "13" | "14" | "15" | "3" | "4" | "5" | "6" | "7" | "8";
+    storage?: "1024" | "128" | "2048" | "256" | "512";
+    ramCapacity?: "12" | "16" | "32" | "4" | "8";
     price?: number;
     stock?: number;
     _key: string;
@@ -1900,13 +1914,15 @@ export type PRODUCT_SEARCH_QUERY_BY_SLUGResult = {
     _type: "image";
     _key: string;
   }>;
+  cpuType?: "celeron" | "core i3" | "core i5" | "core i7" | "core i9" | "Pentium";
+  cpuGeneration?: "10" | "11" | "12" | "13" | "14" | "15" | "3" | "4" | "5" | "6" | "7" | "8";
   ramCapacity?: "12" | "16" | "32" | "4" | "8";
   storage?: "1024" | "128" | "2048" | "256" | "512";
-  cpuGeneration?: "10" | "11" | "12" | "13" | "14" | "15" | "3" | "4" | "5" | "6" | "7" | "8";
-  cpuType?: "celeron" | "core i3" | "core i5" | "core i7" | "core i9" | "Pentium";
   cpuVariants?: Array<{
     cpuType?: "celeron" | "core i3" | "core i5" | "core i7" | "core i9" | "Pentium";
     cpuGeneration?: "10" | "11" | "12" | "13" | "14" | "15" | "3" | "4" | "5" | "6" | "7" | "8";
+    storage?: "1024" | "128" | "2048" | "256" | "512";
+    ramCapacity?: "12" | "16" | "32" | "4" | "8";
     price?: number;
     stock?: number;
     _key: string;
@@ -2151,13 +2167,15 @@ export type RELATED_ITEMS_BY_CATEGORY_QUERYResult = Array<{
     _type: "image";
     _key: string;
   }>;
+  cpuType?: "celeron" | "core i3" | "core i5" | "core i7" | "core i9" | "Pentium";
+  cpuGeneration?: "10" | "11" | "12" | "13" | "14" | "15" | "3" | "4" | "5" | "6" | "7" | "8";
   ramCapacity?: "12" | "16" | "32" | "4" | "8";
   storage?: "1024" | "128" | "2048" | "256" | "512";
-  cpuGeneration?: "10" | "11" | "12" | "13" | "14" | "15" | "3" | "4" | "5" | "6" | "7" | "8";
-  cpuType?: "celeron" | "core i3" | "core i5" | "core i7" | "core i9" | "Pentium";
   cpuVariants?: Array<{
     cpuType?: "celeron" | "core i3" | "core i5" | "core i7" | "core i9" | "Pentium";
     cpuGeneration?: "10" | "11" | "12" | "13" | "14" | "15" | "3" | "4" | "5" | "6" | "7" | "8";
+    storage?: "1024" | "128" | "2048" | "256" | "512";
+    ramCapacity?: "12" | "16" | "32" | "4" | "8";
     price?: number;
     stock?: number;
     _key: string;
@@ -2287,13 +2305,15 @@ export type RELATED_PRODUCTS_BY_MANUFACTURER_QUERYResult = Array<{
     _type: "image";
     _key: string;
   }>;
+  cpuType?: "celeron" | "core i3" | "core i5" | "core i7" | "core i9" | "Pentium";
+  cpuGeneration?: "10" | "11" | "12" | "13" | "14" | "15" | "3" | "4" | "5" | "6" | "7" | "8";
   ramCapacity?: "12" | "16" | "32" | "4" | "8";
   storage?: "1024" | "128" | "2048" | "256" | "512";
-  cpuGeneration?: "10" | "11" | "12" | "13" | "14" | "15" | "3" | "4" | "5" | "6" | "7" | "8";
-  cpuType?: "celeron" | "core i3" | "core i5" | "core i7" | "core i9" | "Pentium";
   cpuVariants?: Array<{
     cpuType?: "celeron" | "core i3" | "core i5" | "core i7" | "core i9" | "Pentium";
     cpuGeneration?: "10" | "11" | "12" | "13" | "14" | "15" | "3" | "4" | "5" | "6" | "7" | "8";
+    storage?: "1024" | "128" | "2048" | "256" | "512";
+    ramCapacity?: "12" | "16" | "32" | "4" | "8";
     price?: number;
     stock?: number;
     _key: string;
@@ -2539,13 +2559,15 @@ export type RELATED_PRODUCTS_BY_NAME_QUERYResult = Array<{
     _type: "image";
     _key: string;
   }>;
+  cpuType?: "celeron" | "core i3" | "core i5" | "core i7" | "core i9" | "Pentium";
+  cpuGeneration?: "10" | "11" | "12" | "13" | "14" | "15" | "3" | "4" | "5" | "6" | "7" | "8";
   ramCapacity?: "12" | "16" | "32" | "4" | "8";
   storage?: "1024" | "128" | "2048" | "256" | "512";
-  cpuGeneration?: "10" | "11" | "12" | "13" | "14" | "15" | "3" | "4" | "5" | "6" | "7" | "8";
-  cpuType?: "celeron" | "core i3" | "core i5" | "core i7" | "core i9" | "Pentium";
   cpuVariants?: Array<{
     cpuType?: "celeron" | "core i3" | "core i5" | "core i7" | "core i9" | "Pentium";
     cpuGeneration?: "10" | "11" | "12" | "13" | "14" | "15" | "3" | "4" | "5" | "6" | "7" | "8";
+    storage?: "1024" | "128" | "2048" | "256" | "512";
+    ramCapacity?: "12" | "16" | "32" | "4" | "8";
     price?: number;
     stock?: number;
     _key: string;

@@ -21,7 +21,7 @@ const FeaturesProse: React.FC<featuresProseProps> = ({
   details,
   fallbackText = "No Description Available",
   className = "text-xl text-gray-900",
-  containerClassName = "bg-gray-50 rounded my-4",
+  containerClassName = "bg-gray-50 rounded mb-4",
 }) => {
   // If no details or empty array, return fallback
   if (!details || details.length === 0) {
@@ -43,7 +43,7 @@ const FeaturesProse: React.FC<featuresProseProps> = ({
 
   return (
     <div className={containerClassName}>
-      <h2 className="px-4 py-4 font-semibold text-lg">Device Specifications</h2>
+      <h2 className="px-4 py-2 font-semibold text-lg">Device Specifications</h2>
       <ul className="list-disc pl-6 space-y-2 text-gray-700">
         {specifications.map((spec, index) => (
           <li key={index} className={className}>

@@ -16,6 +16,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import Link from "next/link";
+import WhatsAppChekoutButton from "@/components/whatsapp/WhatsappCheckoutButton";
 
 const MpesaPayment = dynamic(
   () => import("@/components/payment/MpesaPayment"),
@@ -94,7 +95,7 @@ function BasketPage() {
   );
 
   return (
-    <div className="container mx-auto p-4 max-w-6xl">
+    <div className="container mx-auto p-4 max-w-6xl min-h-screen">
       <h1 className="text-3xl font-bold mb-8 flex items-center gap-3">
         <ShoppingBag className="w-8 h-8" />
         Your Basket
@@ -127,6 +128,13 @@ function BasketPage() {
                       <h2 className="text-xl font-semibold mb-1">
                         {item.product.name}
                       </h2>
+                      <p className="text-gray-600">
+                        @ ksh{" "}
+                        {formatPriceFromString(
+                          (item.product.price ?? 0).toFixed(2)
+                        )}
+                      </p>
+
                       <p className="text-gray-600">
                         ksh{" "}
                         {formatPriceFromString(
@@ -188,6 +196,7 @@ function BasketPage() {
                       <Phone className="w-5 h-5" />
                       Pay with M-Pesa
                     </button>
+                    <WhatsAppChekoutButton products={groupedItems} />
                   </div>
                 ) : (
                   <SignInButton mode="modal">

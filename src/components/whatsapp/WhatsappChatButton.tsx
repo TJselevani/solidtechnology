@@ -3,10 +3,12 @@
 import React from "react";
 import { WHATSAPP_NUMBER } from "@/constants/constants";
 import { FaWhatsapp } from "react-icons/fa";
+import { Accessory, Product } from "../../../sanity.types";
 
 interface WhatsAppChatButtonProps {
   productName?: string;
   productId?: string;
+  product: Product | Accessory;
   buttonText?: string;
   className?: string;
   iconSize?: number;

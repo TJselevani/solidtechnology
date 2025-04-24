@@ -8,6 +8,7 @@ import WhatsAppChatButton from "../whatsapp/WhatsappChatButton";
 import FeaturesProse from "./productFeatures";
 import { CpuGen, CpuType } from "@/constants/types";
 import { ProductSpecsTable } from "./productSpecsTable";
+import Accordion from "../common/accordion";
 
 export interface CpuVariant {
   _key: string;
@@ -76,6 +77,7 @@ export function ProductSpecs({ product }: { product: Product }) {
     options: string[],
     currentValue: string | undefined,
     label: string,
+    isChangable: boolean,
     onSelect?: (option: string) => void
   ) => (
     <div className="mb-6">
@@ -90,7 +92,9 @@ export function ProductSpecs({ product }: { product: Product }) {
               key={option}
               className={`px-4 py-2 rounded-full text-sm font-semibold transition ${
                 isActive
-                  ? "bg-green-600 text-white"
+                  ? isChangable
+                    ? "bg-green-600 text-white"
+                    : "bg-primary text-white"
                   : "bg-gray-200 text-gray-700 hover:bg-gray-300"
               }`}
               onClick={() => onSelect?.(option)}
@@ -113,7 +117,8 @@ export function ProductSpecs({ product }: { product: Product }) {
       return renderVariantOptions(
         CPU_GEN_OPTIONS,
         currentCpuGen,
-        "CPU Generation"
+        "CPU Generation",
+        false
       );
     }
 
@@ -129,6 +134,7 @@ export function ProductSpecs({ product }: { product: Product }) {
       filteredGenOptions,
       currentCpuGen,
       "CPU Generation",
+      false,
       (gen) => handleCpuVariantSelect(currentCpuType, gen as CpuGen)
     );
   };
@@ -159,6 +165,7 @@ export function ProductSpecs({ product }: { product: Product }) {
               ),
               currentCpuType,
               "Choose a CPU variation",
+              true,
               (cpuType) => {
                 const matchedVariant = product.cpuVariants?.find(
                   (v) => v.cpuType === cpuType
@@ -176,29 +183,42 @@ export function ProductSpecs({ product }: { product: Product }) {
             {renderCpuGenOptions()}
 
             {/* RAM and Storage */}
-            {renderVariantOptions(RAM_OPTIONS, product.ramCapacity, "RAM")}
-            {renderVariantOptions(STORAGE_OPTIONS, product.storage, "Storage")}
+            {renderVariantOptions(
+              RAM_OPTIONS,
+              product.ramCapacity,
+              "RAM",
+              false
+            )}
+            {renderVariantOptions(
+              STORAGE_OPTIONS,
+              product.storage,
+              "Storage",
+              false
+            )}
           </div>
         )}
 
         {/* Simple Specs */}
-        <div className="mt-8">
-          <h3 className="font-bold mb-4">Other Specifications:</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {simpleSpecs.map((spec, i) => (
-              <div key={i} className="flex gap-2">
-                <span className="font-semibold">{spec.label}:</span>
-                <span>{spec.value}</span>
-              </div>
-            ))}
+        <Accordion title="Other Specifications">
+          <div className="my-2">
+            {/* <h3 className="font-bold mb-4">Other Specifications:</h3> */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {simpleSpecs.map((spec, i) => (
+                <div key={i} className="flex gap-2">
+                  <span className="font-semibold">{spec.label}:</span>
+                  <span>{spec.value}</span>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+        </Accordion>
 
         {/* WhatsApp */}
         <div className="mt-8">
           <WhatsAppChatButton
             productName={product.name}
             productId={currentPrice?.toString() || ""}
+            product={product}
           />
         </div>
 

@@ -6,6 +6,7 @@ import { useState } from "react";
 import AddToCart from "../basket/addToCart";
 import WhatsAppChatButton from "../whatsapp/WhatsappChatButton";
 import DescriptionProse from "../product/productFeatures";
+import Accordion from "../common/accordion";
 
 export function AccessorySpecs({ product }: { product: Accessory }) {
   const [isOutOfStock] = useState(product.stock != null && product.stock <= 0);
@@ -30,22 +31,25 @@ export function AccessorySpecs({ product }: { product: Accessory }) {
         {proseDetails && <DescriptionProse details={proseDetails} />}
 
         {/* Simple Specifications */}
-        <div className="mt-8">
-          <h3 className="font-bold mb-4">Other Specifications:</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {simpleSpecs.map((spec, index) => (
-              <div key={index} className="flex gap-2">
-                <span className="font-semibold">{spec.label}:</span>
-                <span>{spec.value}</span>
-              </div>
-            ))}
+        <Accordion title="Other Specifications">
+          <div className="mt-8">
+            <h3 className="font-bold mb-4">Other Specifications:</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {simpleSpecs.map((spec, index) => (
+                <div key={index} className="flex gap-2">
+                  <span className="font-semibold">{spec.label}:</span>
+                  <span>{spec.value}</span>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+        </Accordion>
 
         <div className="mt-8">
           <WhatsAppChatButton
             productName={product.name}
             productId={product.price?.toString()}
+            product={product}
           />
         </div>
 

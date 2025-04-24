@@ -50,21 +50,21 @@ const Footer = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <FaFacebook className="w-6 h-6 text-blue-400 hover:text-blue-500" />
+              <FaFacebook className="w-6 h-6 text-primary-400 hover:text-blue-500" />
             </a>
             <a
               href="https://twitter.com"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <FaTwitter className="w-6 h-6 text-blue-400 hover:text-blue-500" />
+              <FaTwitter className="w-6 h-6 text-primary-400 hover:text-blue-500" />
             </a>
             <a
               href="https://instagram.com/@_maina_sam"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <FaInstagram className="w-6 h-6 text-blue-400 hover:text-blue-500" />
+              <FaInstagram className="w-6 h-6 text-primary-400 hover:text-blue-500" />
             </a>
 
             <a
@@ -72,7 +72,7 @@ const Footer = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <FaWhatsapp className="w-6 h-6 text-blue-400 hover:text-blue-500" />
+              <FaWhatsapp className="w-6 h-6 text-primary-400 hover:text-blue-500" />
             </a>
           </div>
         </div>
