@@ -37,15 +37,15 @@ export default async function RootLayout({
           <title>NextGen Computing | High-Performance PCs in Kenya</title>
           <meta
             name="description"
-            content="Buy High Quality PCs, gaming rigs, and laptops in Kenya. Discover performance, affordability, and fast delivery with NextGen Computing."
+            content="Buy High Quality PCs, Monitors, gaming rigs, Phones and laptops in Kenya. Discover performance, affordability, and fast delivery with NextGen Computing."
           />
           <meta
             property="og:title"
-            content="NextGen Computing | High-Performance PCs"
+            content="NextGen Computing | High-Performance Technology"
           />
           <meta
             property="og:description"
-            content="High Quality gaming PCs, laptops, and accessories in Kenya."
+            content="High Quality gaming PCs, Monitors, laptops, Phones and accessories in Kenya."
           />
           <meta
             property="og:image"
