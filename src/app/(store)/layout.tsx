@@ -34,7 +34,45 @@ export default async function RootLayout({
     <ClerkProvider dynamic>
       <html lang="en">
         <Head>
-          <link rel="icon" href="/favicon.ico" />
+          <title>NextGen Computing | High-Performance PCs in Kenya</title>
+          <meta
+            name="description"
+            content="Buy High Quality PCs, gaming rigs, and laptops in Kenya. Discover performance, affordability, and fast delivery with NextGen Computing."
+          />
+          <meta
+            property="og:title"
+            content="NextGen Computing | High-Performance PCs"
+          />
+          <meta
+            property="og:description"
+            content="High Quality gaming PCs, laptops, and accessories in Kenya."
+          />
+          <meta
+            property="og:image"
+            content="https://nextgencomputing.co.ke/og-image.jpg"
+          />
+          <meta property="og:url" content="https://nextgencomputing.co.ke" />
+          <meta name="facebook:card" content="summary_large_image" />
+          <meta name="instagram:card" content="summary_large_image" />
+          <meta name="twitter:card" content="summary_large_image" />
+          <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="/apple-touch-icon.png"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/favicon-32x32.png"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/favicon-16x16.png"
+          />
+          <link rel="manifest" href="/site.webmanifest" />
         </Head>
         <body
           className={`${inter.className} bg-gray-50 text-black dark:bg-custom-black dark:text-black`}
