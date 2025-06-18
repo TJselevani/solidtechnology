@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://nextgencomputing.co.ke
+
+# Sitemaps
+Sitemap: https://nextgencomputing.co.ke/sitemap.xml

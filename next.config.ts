@@ -13,11 +13,17 @@ const nextConfig: NextConfig = {
 
   /* redirects */
   async redirects() {
-    return []; //  Redirects have been removed.
+    // return []; //  Redirects have been removed.
     return [
       {
-        source: "/",
-        destination: "/",
+        source: "/(.*)",
+        has: [
+          {
+            type: "host",
+            value: "nextgencomputing.vercel.app",
+          },
+        ],
+        destination: "https://nextgencomputing.co.ke/:path*",
         permanent: true, // Use 'true' for permanent redirects (308)
       },
     ];
