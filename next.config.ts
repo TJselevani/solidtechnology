@@ -1,6 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  experimental: {
+    strictNextHead: true, // Ensures only valid tags are used in <head>
+    optimizeCss: true,
+  },
+  compress: true,
+  // poweredByHeader: true,
+
   /* config options here */
   images: {
     remotePatterns: [
